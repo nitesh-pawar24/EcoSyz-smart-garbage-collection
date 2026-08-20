@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
@@ -8,6 +10,7 @@ import {
 import { usePanchayat } from '../../context/PanchayatContext';
 import api from '../../api/axios';
 import LogoutConfirmModal from '../shared/LogoutConfirmModal';
+import { useAppNavigate } from '../../utils/navigation';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 20 },
@@ -69,12 +72,26 @@ const QuickAction = ({ label, icon: Icon, bg, iconColor, onClick, delay }) => (
     </motion.button>
 );
 
-const HouseholdDashboard = ({ navigate }) => {
+const HouseholdDashboard = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat, refreshPanchayatData } = usePanchayat();
     const [complaints, setComplaints] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
-    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const stored = localStorage.getItem('user');
+        if (stored) {
+            try {
+                setUser(JSON.parse(stored));
+            } catch {
+                setUser(null);
+            }
+        }
+    }, []);
+
     const initials = user?.name?.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || 'U';
 
     const [dashboardData, setDashboardData] = useState({

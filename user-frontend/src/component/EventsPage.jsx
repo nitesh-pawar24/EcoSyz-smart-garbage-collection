@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, Users, CheckCircle2, Loader2 } from 'lucide-react';
@@ -6,6 +8,7 @@ import Breadcrumb from './shared/Breadcrumb';
 import Footer from './shared/Footer';
 import { usePanchayat } from '../context/PanchayatContext';
 import api from '../api/axios';
+import { useAppNavigate } from '../utils/navigation';
 
 const defaultEvents = [
     {
@@ -45,7 +48,9 @@ const fadeUp = {
     visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } })
 };
 
-const EventsPage = ({ navigate }) => {
+const EventsPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat } = usePanchayat();
     const [filter, setFilter] = useState('upcoming');
     const [registered, setRegistered] = useState([]);

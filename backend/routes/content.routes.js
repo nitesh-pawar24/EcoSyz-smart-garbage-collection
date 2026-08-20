@@ -16,7 +16,7 @@ router.get("/public/:panchayatId", getPublicContent);
 
 // --- PROTECTED ROUTES ---
 router.use(protect);
-router.use(allowRolesMiddleware("PANCHAYAT_ADMIN"));
+router.use(allowRolesMiddleware("PANCHAYAT_ADMIN", "ADMIN"));
 
 router.get("/", getContent); // ?type=about-us
 router.post("/", saveContent);

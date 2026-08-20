@@ -1,9 +1,12 @@
+"use client";
+
 // frontend/src/component/RegistrationPage.jsx
 
 import React, { useState } from 'react';
 import { Users, Mail, Lock, Home, MapPin, Smartphone, FileText, Upload } from 'lucide-react';
 import Button from './shared/Button';
 import { PRIMARY_COLOR, ACCENT_COLOR } from '../config';
+import { useAppNavigate } from '../utils/navigation';
 
 const IconInput = ({ icon: Icon, placeholder, label, type = 'text', half = true }) => (
     <div className={`flex flex-col ${half ? 'md:w-1/2' : 'w-full'} p-2`}>
@@ -42,7 +45,9 @@ const FileUpload = ({ title, documentsAccepted, setFile, file }) => (
     </div>
 );
 
-const RegistrationPage = ({ navigate }) => {
+const RegistrationPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const [identityFile, setIdentityFile] = useState(null);
     const [premisesFile, setPremisesFile] = useState(null);
 

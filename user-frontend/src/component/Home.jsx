@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
@@ -9,15 +11,16 @@ import { committeeMembers as defaultCommittee, contactMembers } from '../config'
 import Footer from './shared/Footer';
 import { usePanchayat } from '../context/PanchayatContext';
 import api from '../api/axios';
+import { useAppNavigate } from '../utils/navigation';
 
 import img1 from '../assets/imgg1.png';
 import img2 from '../assets/imgg.png';
 import img3 from '../assets/img3.png';
 
 const slides = [
-    { image: img1, title: 'Smart Waste Collection', sub: 'Powered by technology, driven by community.' },
-    { image: img2, title: 'Real-Time Tracking', sub: 'Know exactly when the vehicle arrives.' },
-    { image: img3, title: 'Clean Tomorrow', sub: 'A greener future starts with you.' },
+    { image: typeof img1 === 'object' && img1.src ? img1.src : img1, title: 'Smart Waste Collection', sub: 'Powered by technology, driven by community.' },
+    { image: typeof img2 === 'object' && img2.src ? img2.src : img2, title: 'Real-Time Tracking', sub: 'Know exactly when the vehicle arrives.' },
+    { image: typeof img3 === 'object' && img3.src ? img3.src : img3, title: 'Clean Tomorrow', sub: 'A greener future starts with you.' },
 ];
 
 const features = [
@@ -38,12 +41,21 @@ const fadeUp = {
     visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.1, duration: 0.5, ease: 'easeOut' } })
 };
 
-const HomePage = ({ navigate }) => {
+const HomePage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat } = usePanchayat();
     const [currentSlide, setCurrentSlide] = useState(0);
     const [panchayatDetails, setPanchayatDetails] = useState(null);
     const [committeeMembers, setCommitteeMembers] = useState(defaultCommittee);
-    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            try { setUser(JSON.parse(storedUser)); } catch { setUser(null); }
+        }
+    }, []);
 
     useEffect(() => {
         const interval = setInterval(() => setCurrentSlide((p) => (p + 1) % slides.length), 5000);

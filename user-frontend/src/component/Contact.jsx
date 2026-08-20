@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Phone, Mail, MapPin, Send, Clock, Loader2 } from 'lucide-react';
@@ -7,6 +9,7 @@ import Footer from './shared/Footer';
 import { contactMembers as defaultMembers } from '../config';
 import { usePanchayat } from '../context/PanchayatContext';
 import api from '../api/axios';
+import { useAppNavigate } from '../utils/navigation';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 24 },
@@ -20,7 +23,9 @@ const avatarColors = [
     'from-amber-500 to-orange-400',
 ];
 
-const ContactPage = ({ navigate }) => {
+const ContactPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat } = usePanchayat();
     const [form, setForm] = useState({ name: '', email: '', message: '' });
     const [sending, setSending] = useState(false);

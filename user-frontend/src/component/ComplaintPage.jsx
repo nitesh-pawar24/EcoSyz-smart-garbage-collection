@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertCircle, CheckCircle2, X, Leaf, ImagePlus } from 'lucide-react';
@@ -6,21 +8,41 @@ import Breadcrumb from './shared/Breadcrumb';
 import Footer from './shared/Footer';
 import { usePanchayat } from '../context/PanchayatContext';
 import api from '../api/axios';
+import { useAppNavigate } from '../utils/navigation';
 
 const complaintTypes = ['Missed Bin', 'Not Segregated', 'Hazardous Waste', 'Civic Issue', 'Other'];
 
-const ComplaintPage = ({ navigate }) => {
+const ComplaintPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat } = usePanchayat();
-    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    const [user, setUser] = useState(null);
 
     const [formData, setFormData] = useState({
-        name: user?.name || '',
-        mobile: user?.mobile || '',
+        name: '',
+        mobile: '',
         type: '',
         description: '',
         photo: null,
         ward: '',
     });
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            try {
+                const u = JSON.parse(storedUser);
+                setUser(u);
+                setFormData(prev => ({
+                    ...prev,
+                    name: u?.name || prev.name,
+                    mobile: u?.mobile || prev.mobile,
+                }));
+            } catch {
+                setUser(null);
+            }
+        }
+    }, []);
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});

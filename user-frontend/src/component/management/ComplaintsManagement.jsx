@@ -1,9 +1,14 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Edit2, Trash2, AlertCircle, Eye, Plus, CheckCircle } from 'lucide-react';
 import Button from '../shared/Button';
+import { useAppNavigate } from '../../utils/navigation';
 
-const ComplaintsManagement = ({ navigate }) => {
+const ComplaintsManagement = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const [complaints] = useState([
         { id: 1, user: 'Rajesh Kumar', title: 'Missed Collection', date: '2025-02-20', status: 'Open', priority: 'High' },
         { id: 2, user: 'Priya Sharma', title: 'Driver Behavior', date: '2025-02-18', status: 'In Progress', priority: 'Medium' },

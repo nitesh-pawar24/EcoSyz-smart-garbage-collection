@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
@@ -9,6 +11,7 @@ import api from '../api/axios';
 import { usePanchayat } from '../context/PanchayatContext';
 import Breadcrumb from './shared/Breadcrumb';
 import Footer from './shared/Footer';
+import { useAppNavigate } from '../utils/navigation';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 24 },
@@ -39,7 +42,9 @@ const InputField = ({ label, icon: Icon, type = 'text', value, onChange, placeho
     </div>
 );
 
-const RegisterPage = ({ navigate }) => {
+const RegisterPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat } = usePanchayat();
 
     const [form, setForm] = useState({

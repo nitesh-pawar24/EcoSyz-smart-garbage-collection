@@ -32,8 +32,8 @@ router.get("/dashboard", protect, getDashboardData);
 // Admin-created registration (protected)
 router.post("/", protect, registerHousehold);
 router.get("/", protect, getHouseholds);
-router.put("/:id", protect, allowRoles("PANCHAYAT_ADMIN"), updateHousehold);
-router.patch("/:id/status", protect, allowRoles("PANCHAYAT_ADMIN"), updateHouseholdStatus);
-router.delete("/:id", protect, allowRoles("PANCHAYAT_ADMIN"), deleteHousehold);
+router.put("/:id", protect, allowRoles("PANCHAYAT_ADMIN", "ADMIN"), updateHousehold);
+router.patch("/:id/status", protect, allowRoles("PANCHAYAT_ADMIN", "ADMIN"), updateHouseholdStatus);
+router.delete("/:id", protect, allowRoles("PANCHAYAT_ADMIN", "ADMIN"), deleteHousehold);
 
 export default router;

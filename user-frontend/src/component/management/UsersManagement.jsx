@@ -1,9 +1,14 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Edit2, Trash2, Lock, Eye, Plus } from 'lucide-react';
 import Button from '../shared/Button';
+import { useAppNavigate } from '../../utils/navigation';
 
-const UsersManagement = ({ navigate }) => {
+const UsersManagement = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const [users] = useState([
         { id: 1, name: 'Rajesh Kumar', email: 'rajesh@gmail.com', role: 'Household', status: 'Active', joinDate: '2024-01-15' },
         { id: 2, name: 'Priya Sharma', email: 'priya@gmail.com', role: 'Household', status: 'Active', joinDate: '2024-02-20' },

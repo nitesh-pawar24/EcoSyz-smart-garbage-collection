@@ -1,11 +1,16 @@
+"use client";
+
 // frontend/src/component/auth/LoginPage.jsx
 
 import React from 'react';
 import { Users, Lock } from 'lucide-react';
 import Button from '../shared/Button';
 import { PRIMARY_COLOR } from '../../config';
+import { useAppNavigate } from '../../utils/navigation';
 
-const LoginPage = ({ navigate }) => {
+const LoginPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const IconInput = ({ icon: Icon, placeholder, type = 'text' }) => (
         <div className="relative mb-6">
             <input

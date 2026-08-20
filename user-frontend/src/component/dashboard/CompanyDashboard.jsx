@@ -1,9 +1,14 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Building2, TrendingUp, Truck, Users, BarChart3, LogOut } from 'lucide-react';
 import Button from '../shared/Button';
+import { useAppNavigate } from '../../utils/navigation';
 
-const CompanyDashboard = ({ navigate }) => {
+const CompanyDashboard = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const [trucks, setTrucks] = useState([
         { id: 'T001', driver: 'Ravi Kumar', status: 'Active', collections: 45 },
         { id: 'T002', driver: 'Amit Singh', status: 'Active', collections: 38 },

@@ -1,9 +1,14 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Save, Settings, Lock, Bell, Shield, Eye, EyeOff } from 'lucide-react';
 import Button from '../shared/Button';
+import { useAppNavigate } from '../../utils/navigation';
 
-const SystemSettings = ({ navigate }) => {
+const SystemSettings = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const [settings, setSettings] = useState({
         appName: 'EcoSyz',
         adminEmail: 'admin@d2d.com',

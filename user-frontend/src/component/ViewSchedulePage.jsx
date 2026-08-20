@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, MapPin, Truck, Info, Loader2 } from 'lucide-react';
@@ -5,6 +7,7 @@ import Breadcrumb from './shared/Breadcrumb';
 import Footer from './shared/Footer';
 import { usePanchayat } from '../context/PanchayatContext';
 import api from '../api/axios';
+import { useAppNavigate } from '../utils/navigation';
 
 // Default schedule (fallback when no backend data)
 const defaultSchedule = [
@@ -20,7 +23,9 @@ const fadeUp = {
     visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.07, duration: 0.45 } })
 };
 
-const ViewSchedulePage = ({ navigate }) => {
+const ViewSchedulePage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat } = usePanchayat();
     const [view, setView] = useState('cards');
     const [schedule, setSchedule] = useState(defaultSchedule);

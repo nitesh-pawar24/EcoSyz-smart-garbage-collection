@@ -1,9 +1,14 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Edit2, Trash2, Truck, Eye, Plus, MapPin } from 'lucide-react';
 import Button from '../shared/Button';
+import { useAppNavigate } from '../../utils/navigation';
 
-const FleetManagement = ({ navigate }) => {
+const FleetManagement = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const [fleets] = useState([
         { id: 'T001', company: 'Eco Waste', driver: 'Ravi Kumar', status: 'Active', location: 'Downtown', capacity: '5 ton', lastService: '2025-02-15' },
         { id: 'T002', company: 'Green Dispose', driver: 'Amit Singh', status: 'Active', location: 'Westside', capacity: '6 ton', lastService: '2025-02-10' },

@@ -1,8 +1,11 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Smartphone, UserCheck, Calendar, Truck, CheckCircle2, BarChart2, Leaf } from 'lucide-react';
 import Breadcrumb from './shared/Breadcrumb';
 import Footer from './shared/Footer';
+import { useAppNavigate } from '../utils/navigation';
 
 const steps = [
     {
@@ -48,8 +51,8 @@ const steps = [
     {
         step: '06',
         icon: BarChart2,
-        title: 'Track Your Impact',
-        description: 'View statistics showing waste collected, segregation compliance rates, and your ward\'s performance. Together, we are building a cleaner community.',
+        title: 'Track Community Progress',
+        description: 'View monthly collection statistics, recycling percentages, and ward-level cleanliness reports in real time on our Statistics page.',
         color: 'from-teal-500 to-cyan-400',
         bg: 'bg-teal-50 text-teal-600',
     },
@@ -67,7 +70,10 @@ const fadeUp = {
     visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } })
 };
 
-const HowItWorksPage = ({ navigate }) => (
+const HowItWorksPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
+    return (
     <div className="min-h-screen" style={{ background: 'var(--surface-2)' }}>
         <div className="max-w-4xl mx-auto px-4 py-10">
             <Breadcrumb path={[{ label: 'How It Works', view: null }]} navigate={navigate} />
@@ -154,6 +160,7 @@ const HowItWorksPage = ({ navigate }) => (
         </div>
         <Footer navigate={navigate} />
     </div>
-);
+    );
+};
 
 export default HowItWorksPage;

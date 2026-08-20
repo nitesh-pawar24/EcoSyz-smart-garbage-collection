@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -8,6 +10,7 @@ import { toast } from 'react-toastify';
 import Breadcrumb from './shared/Breadcrumb';
 import { usePanchayat } from '../context/PanchayatContext';
 import api from '../api/axios';
+import { useAppNavigate } from '../utils/navigation';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 20 },
@@ -23,7 +26,9 @@ const wasteTypes = [
 
 const timeSlots = ['07:00 AM', '08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM', '02:00 PM', '03:00 PM', '04:00 PM'];
 
-const ScheduleBooking = ({ navigate }) => {
+const ScheduleBooking = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat } = usePanchayat();
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({ date: '', time: '', address: '', phone: '', wasteType: '', note: '' });

@@ -12,7 +12,7 @@ import { allowRoles } from "../middleware/roleMiddleware.js";
 const router = express.Router();
 
 router.use(protect);
-router.use(allowRoles("PANCHAYAT_ADMIN", "COMPANY_ADMIN"));
+router.use(allowRoles("PANCHAYAT_ADMIN", "ADMIN", "COMPANY_ADMIN"));
 
 router.post("/", createRoute);
 router.get("/", getRoutes);

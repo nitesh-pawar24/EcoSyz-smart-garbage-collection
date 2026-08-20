@@ -15,13 +15,13 @@ router.use(protect); // All routes require authentication
 
 router
   .route("/")
-  .post(allowRoles("PANCHAYAT_ADMIN"), createDustbin) // Only Admin can create
+  .post(allowRoles("PANCHAYAT_ADMIN", "ADMIN"), createDustbin) // Only Admin can create
   .get(getDustbins); // Admin, Supervisor, etc. can view
 
 router
   .route("/:id")
   .get(getDustbinById)
-  .put(allowRoles("PANCHAYAT_ADMIN"), updateDustbin)
-  .delete(allowRoles("PANCHAYAT_ADMIN"), deleteDustbin);
+  .put(allowRoles("PANCHAYAT_ADMIN", "ADMIN"), updateDustbin)
+  .delete(allowRoles("PANCHAYAT_ADMIN", "ADMIN"), deleteDustbin);
 
 export default router;

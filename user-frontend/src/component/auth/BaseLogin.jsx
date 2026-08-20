@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { Phone, KeyRound, X, ArrowRight, Shield, Zap, Leaf, Clock, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -5,6 +7,7 @@ import { toast } from 'react-toastify';
 import api from '../../api/axios';
 import { usePanchayat } from '../../context/PanchayatContext';
 import LoginSuccessModal from '../shared/LoginSuccessModal';
+import { useAppNavigate } from '../../utils/navigation';
 
 /* ── OTP Box (each digit cell) ── */
 const OtpInput = ({ value, onChange }) => {
@@ -56,7 +59,9 @@ const Field = ({ icon: Icon, placeholder, type = 'text', value, onChange, disabl
     </div>
 );
 
-const BaseLogin = ({ navigate, type }) => {
+const BaseLogin = ({ navigate: propNavigate, type }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat } = usePanchayat();
     const [mobile, setMobile] = useState('');
     const [otp, setOtp] = useState('');

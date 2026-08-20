@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen, Download, ExternalLink, FileText, Video, ChevronRight, Play } from 'lucide-react';
@@ -8,6 +10,7 @@ import Breadcrumb from './shared/Breadcrumb';
 import Footer from './shared/Footer';
 import { usePanchayat } from '../context/PanchayatContext';
 import api from '../api/axios';
+import { useAppNavigate } from '../utils/navigation';
 
 /* ─── HARDCODED DEFAULTS ─── */
 const DEFAULT_GUIDES = [
@@ -35,7 +38,9 @@ const fadeUp = {
     visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } })
 };
 
-const GuidesResourcesPage = ({ navigate }) => {
+const GuidesResourcesPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat } = usePanchayat();
     const [loading,       setLoading]       = useState(true);
     const [guides,        setGuides]        = useState(DEFAULT_GUIDES);

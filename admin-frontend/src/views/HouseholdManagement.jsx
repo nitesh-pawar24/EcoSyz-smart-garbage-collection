@@ -298,7 +298,7 @@ export default function HouseholdManagement() {
       toast.success(`Household ${newStatus} successfully`)
     } catch (error) {
       console.error("Verification failed", error)
-      toast.error("Failed to update status")
+      toast.error(error.response?.data?.message || "Failed to update status")
     }
   }
 

@@ -1,10 +1,15 @@
+"use client";
+
 import React, { useState } from 'react';
 import { Gauge, Leaf } from 'lucide-react';
 import Button from './Button';
 import Breadcrumb from './Breadcrumb';
 import { statisticsData, scheduleData } from '../../config';
+import { useAppNavigate } from '../../utils/navigation';
 
-const QuickLinkPage = ({ navigate, title }) => {
+const QuickLinkPage = ({ navigate: propNavigate, title }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
 
     const [showVideo, setShowVideo] = useState(false);
     const [formData, setFormData] = useState({

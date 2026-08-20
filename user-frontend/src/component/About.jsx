@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Leaf, FileText, LineChart, Calendar, Scale, Users, Globe, Shield, Award } from 'lucide-react';
@@ -6,6 +8,7 @@ import Breadcrumb from './shared/Breadcrumb';
 import Footer from './shared/Footer';
 import { usePanchayat } from '../context/PanchayatContext';
 import api from '../api/axios';
+import { useAppNavigate } from '../utils/navigation';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 24 },
@@ -42,6 +45,8 @@ const STAT_ICON_MAP = {
     'Active Wards':      Globe,
     'Satisfaction Rate': Award,
     'Government Backed': Shield,
+    'Waste Collected':   FileText,
+    'Total Complaints':  Scale,
     'Panchayats':        Globe,
 };
 const defaultStatIcon = (label) => STAT_ICON_MAP[label] || Award;
@@ -52,7 +57,9 @@ const getImageUrl = (path) => {
     return `http://localhost:10000/${path}`;
 };
 
-const AboutPage = ({ navigate }) => {
+const AboutPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat } = usePanchayat();
     const [expanded, setExpanded]       = useState('mission');
     const [loading,  setLoading]        = useState(true);

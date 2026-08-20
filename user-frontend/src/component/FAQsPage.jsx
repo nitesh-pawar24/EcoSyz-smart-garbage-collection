@@ -1,9 +1,12 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle, MessageSquare, Search, Send } from 'lucide-react';
 import { toast } from 'react-toastify';
 import Breadcrumb from './shared/Breadcrumb';
 import Footer from './shared/Footer';
+import { useAppNavigate } from '../utils/navigation';
 
 const faqCategories = [
     {
@@ -48,33 +51,33 @@ const faqCategories = [
     },
     {
         id: 'pickups',
-        label: 'Pickup & Schedule',
+        label: 'Pickups & Waste',
         faqs: [
             {
-                q: 'How do I schedule a waste pickup?',
-                a: 'Go to your Dashboard → Schedule Pickup. Choose a date, time, waste type, and address. You will receive an SMS confirmation once the pickup is confirmed.'
+                q: 'How do I schedule a special waste pickup?',
+                a: 'Go to Schedule Booking from your dashboard, pick a date, time slot, waste category (Organic, Recyclable, Hazardous, Bulk), enter your address, and confirm. You will receive an SMS confirmation.'
             },
             {
-                q: 'Can I cancel or reschedule a pickup?',
-                a: 'At this time, cancellations must be done by contacting your Panchayat directly. Self-service cancellations will be available in a future update.'
+                q: 'What categories of waste are accepted?',
+                a: 'We accept Organic/Wet waste, Recyclables (paper, plastic, glass, metal), Domestic Hazardous waste (batteries, chemicals), and Bulk items (furniture, large appliances). Please segregate before handover.'
             },
             {
-                q: 'What types of waste can be scheduled for pickup?',
-                a: 'You can schedule pickups for Organic Waste, Recyclable materials, Hazardous items, and Bulk Items. Please ensure proper segregation before collection.'
+                q: 'What are the normal collection hours?',
+                a: 'Daily door-to-door collection runs from 7:00 AM to 11:00 AM. Special pickups are available from 7:00 AM to 4:00 PM.'
             },
             {
-                q: 'What happens if the pickup vehicle doesn\'t arrive?',
-                a: 'If a confirmed pickup is missed, please submit a complaint through the app with the "Missed Bin" category. Our team will follow up within 24 hours.'
+                q: 'Can I cancel or reschedule a booking?',
+                a: 'Yes, you can cancel or reschedule up to 2 hours before the scheduled time slot via your Dashboard.'
             },
         ]
     },
     {
         id: 'complaints',
-        label: 'Complaints',
+        label: 'Complaints & Support',
         faqs: [
             {
-                q: 'How do I submit a complaint?',
-                a: 'From your Dashboard or via the navbar Quick Links, go to "Submit Complaint". Fill in the type, description, and submit. You\'ll receive a complaint ID to track the status.'
+                q: 'How do I report a missed bin collection?',
+                a: 'Click Submit Complaint in the top navigation or from your dashboard. Select "Missed Bin", enter your location/ward, attach a photo if available, and submit. You can track resolution status in real time.'
             },
             {
                 q: 'How long does it take to resolve a complaint?',
@@ -93,7 +96,9 @@ const fadeUp = {
     visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.06, duration: 0.45 } })
 };
 
-const FAQsPage = ({ navigate }) => {
+const FAQsPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const [activeCategory, setActiveCategory] = useState('general');
     const [expanded, setExpanded] = useState(null);
     const [search, setSearch] = useState('');

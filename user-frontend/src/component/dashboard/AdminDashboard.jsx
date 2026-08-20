@@ -1,9 +1,14 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { BarChart3, Users, Truck, AlertTriangle, Settings, LogOut } from 'lucide-react';
 import Button from '../shared/Button';
+import { useAppNavigate } from '../../utils/navigation';
 
-const AdminDashboard = ({ navigate }) => {
+const AdminDashboard = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const [systemStats] = useState({
         totalUsers: 2450,
         activeCompanies: 45,

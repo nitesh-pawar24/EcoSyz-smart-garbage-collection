@@ -1,9 +1,14 @@
+"use client";
+
 import React from 'react';
 import { Leaf, Phone, Mail, MapPin, Github, Twitter, Facebook } from 'lucide-react';
 import { quickLinks } from '../../config';
 import { usePanchayat } from '../../context/PanchayatContext';
+import { useAppNavigate } from '../../utils/navigation';
 
-const Footer = ({ navigate }) => {
+const Footer = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat } = usePanchayat();
 
     const phone = selectedPanchayat?.contactPhone || '+91 99999 99999';

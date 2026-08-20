@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Scale, ShieldCheck, FileText, Download, ExternalLink, Loader2, Info } from 'lucide-react';
@@ -6,6 +8,7 @@ import Footer from './shared/Footer';
 import { usePanchayat } from '../context/PanchayatContext';
 import api from '../api/axios';
 import { toast } from 'react-toastify';
+import { useAppNavigate } from '../utils/navigation';
 
 const defaultDocs = [
     { title: 'Waste Management Bylaws 2024', description: 'Official regulations for household waste segregation and collection frequency.', date: 'Jan 15, 2024', size: '1.2 MB', url: '#' },
@@ -19,7 +22,9 @@ const fadeUp = {
     visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } })
 };
 
-const LegalTransparencyPage = ({ navigate }) => {
+const LegalTransparencyPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const { selectedPanchayat } = usePanchayat();
     const [docs, setDocs] = useState(defaultDocs);
     const [loading, setLoading] = useState(false);

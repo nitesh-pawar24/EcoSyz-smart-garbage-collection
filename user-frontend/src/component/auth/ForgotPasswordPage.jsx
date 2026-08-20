@@ -1,10 +1,15 @@
+"use client";
+
 // frontend/src/component/auth/ForgotPasswordPage.jsx
 
 import React from 'react';
 import Button from '../shared/Button';
 import { ACCENT_COLOR } from '../../config';
+import { useAppNavigate } from '../../utils/navigation';
 
-const ForgotPasswordPage = ({ navigate }) => {
+const ForgotPasswordPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     return (
         <div className="container mx-auto pt-10 px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap shadow-2xl rounded-xl overflow-hidden min-h-[60vh]">

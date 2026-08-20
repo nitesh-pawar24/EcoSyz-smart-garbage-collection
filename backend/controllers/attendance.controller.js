@@ -154,7 +154,7 @@ export const manualAttendance = async (req, res) => {
   try {
     const { labourId, date, reason } = req.body;
 
-    if (req.user.role !== "PANCHAYAT_ADMIN") {
+    if (req.user.role !== "PANCHAYAT_ADMIN" && req.user.role !== "ADMIN") {
       return res.status(403).json({ message: "Access denied" });
     }
 

@@ -1,6 +1,9 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CreditCard, Download, AlertCircle, CheckCircle2, ArrowLeft, TrendingUp } from 'lucide-react';
+import { useAppNavigate } from '../utils/navigation';
 
 const payments = [
     { id: 'INV-001', date: '2025-02-01', amount: 500, status: 'Paid', method: 'UPI' },
@@ -19,7 +22,10 @@ const fadeUp = {
     visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.45 } })
 };
 
-const PaymentHistory = ({ navigate }) => (
+const PaymentHistory = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
+    return (
     <div className="min-h-screen" style={{ background: 'var(--surface-2)' }}>
         <div className="max-w-5xl mx-auto px-4 py-8">
             <button
@@ -124,6 +130,7 @@ const PaymentHistory = ({ navigate }) => (
             </motion.div>
         </div>
     </div>
-);
+    );
+};
 
 export default PaymentHistory;

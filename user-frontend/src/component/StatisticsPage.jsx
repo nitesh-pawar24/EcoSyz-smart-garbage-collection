@@ -1,8 +1,11 @@
+"use client";
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { BarChart2, TrendingUp, Truck, Users, AlertCircle, CheckCircle2, Leaf, Recycle } from 'lucide-react';
 import Breadcrumb from './shared/Breadcrumb';
 import Footer from './shared/Footer';
+import { useAppNavigate } from '../utils/navigation';
 
 const stats = [
     { icon: Users, label: 'Households Covered', value: '2,500+', sub: 'Across 5 wards', color: 'bg-blue-50 text-blue-600' },
@@ -40,7 +43,10 @@ const fadeUp = {
     visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.07, duration: 0.45 } })
 };
 
-const StatisticsPage = ({ navigate }) => (
+const StatisticsPage = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
+    return (
     <div className="min-h-screen" style={{ background: 'var(--surface-2)' }}>
         <div className="max-w-5xl mx-auto px-4 py-10">
             <Breadcrumb path={[{ label: 'Statistics & Reports', view: null }]} navigate={navigate} />
@@ -176,6 +182,7 @@ const StatisticsPage = ({ navigate }) => (
         </div>
         <Footer navigate={navigate} />
     </div>
-);
+    );
+};
 
 export default StatisticsPage;

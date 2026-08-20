@@ -1,22 +1,49 @@
-import React, { useState } from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Mail, Phone, MapPin, Lock, Save, Edit3, ArrowLeft, Shield } from 'lucide-react';
+import { useAppNavigate } from '../utils/navigation';
 
-const UserProfile = ({ navigate }) => {
-    const storedUser = JSON.parse(localStorage.getItem('user') || 'null');
+const UserProfile = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const [isEditing, setIsEditing] = useState(false);
     const [profile, setProfile] = useState({
-        name: storedUser?.name || 'John Doe',
-        email: storedUser?.email || 'john@example.com',
-        phone: storedUser?.mobile || '+91 99999 99999',
+        name: 'John Doe',
+        email: 'john@example.com',
+        phone: '+91 99999 99999',
         address: '123 Main Street, City',
         city: 'Mumbai',
         state: 'Maharashtra',
         pincode: '400001',
-        memberSince: storedUser?.createdAt ? new Date(storedUser.createdAt).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }) : 'Jan 2024',
+        memberSince: 'Jan 2024',
     });
     const [tempProfile, setTempProfile] = useState({ ...profile });
     const [profileErrors, setProfileErrors] = useState({});
+
+    useEffect(() => {
+        const stored = localStorage.getItem('user');
+        if (stored) {
+            try {
+                const u = JSON.parse(stored);
+                const updated = {
+                    name: u?.name || 'John Doe',
+                    email: u?.email || 'john@example.com',
+                    phone: u?.mobile || '+91 99999 99999',
+                    address: u?.address || '123 Main Street, City',
+                    city: u?.city || 'Mumbai',
+                    state: u?.state || 'Maharashtra',
+                    pincode: u?.pincode || '400001',
+                    memberSince: u?.createdAt ? new Date(u.createdAt).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }) : 'Jan 2024',
+                };
+                setProfile(updated);
+                setTempProfile(updated);
+            } catch (e) {
+                // Ignore parse errors
+            }
+        }
+    }, []);
 
     const handleChange = (e) => {
         setTempProfile((p) => ({ ...p, [e.target.name]: e.target.value }));

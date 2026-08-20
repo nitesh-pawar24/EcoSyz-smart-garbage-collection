@@ -1,11 +1,19 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, Leaf, Menu, X as Close, MapPin, Edit3, User as UserIcon, LogOut, LayoutDashboard, Bell } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { quickLinks } from '../config';
 import { usePanchayat } from '../context/PanchayatContext';
 import LogoutConfirmModal from './shared/LogoutConfirmModal';
+import { useAppNavigate, useCurrentView } from '../utils/navigation';
 
-const Navbar = ({ currentPage, navigate }) => {
+const Navbar = ({ currentPage: propCurrentPage, navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const activeView = useCurrentView();
+    const navigate = propNavigate || appNavigate;
+    const currentPage = propCurrentPage || activeView;
+
     const { selectedPanchayat, setIsPanchayatModalOpen } = usePanchayat();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,9 +23,25 @@ const Navbar = ({ currentPage, navigate }) => {
     const dropdownRef = useRef(null);
     const profileRef = useRef(null);
 
-    // Auth
-    const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    // Auth (SSR safe)
+    const [token, setToken] = useState(null);
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        const storedUser = localStorage.getItem('user');
+        setToken(storedToken);
+        if (storedUser) {
+            try {
+                setUser(JSON.parse(storedUser));
+            } catch {
+                setUser(null);
+            }
+        } else {
+            setUser(null);
+        }
+    }, []);
+
     const isLoggedIn = !!token && !!user;
 
     useEffect(() => {
@@ -44,6 +68,8 @@ const Navbar = ({ currentPage, navigate }) => {
     const confirmLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        setToken(null);
+        setUser(null);
         setShowLogoutModal(false);
         navigate('home');
     };

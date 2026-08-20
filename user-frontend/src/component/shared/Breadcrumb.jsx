@@ -1,7 +1,13 @@
+"use client";
+
 import React from 'react';
 import { ChevronRight, Home } from 'lucide-react';
+import { useAppNavigate } from '../../utils/navigation';
 
-const Breadcrumb = ({ path, navigate }) => (
+const Breadcrumb = ({ path, navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
+    return (
     <nav className="flex items-center gap-1.5 text-sm mb-6">
         <button
             onClick={() => navigate('home')}
@@ -25,6 +31,7 @@ const Breadcrumb = ({ path, navigate }) => (
             </span>
         ))}
     </nav>
-);
+    );
+};
 
 export default Breadcrumb;

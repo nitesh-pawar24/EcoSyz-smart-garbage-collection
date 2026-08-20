@@ -1,9 +1,14 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Edit2, Trash2, Building2, Eye, Plus } from 'lucide-react';
 import Button from '../shared/Button';
+import { useAppNavigate } from '../../utils/navigation';
 
-const CompaniesManagement = ({ navigate }) => {
+const CompaniesManagement = ({ navigate: propNavigate }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const [companies] = useState([
         { id: 1, name: 'Eco Waste Solutions', contact: 'Rajesh Kumar', email: 'info@ecowaste.com', trucks: 5, status: 'Active' },
         { id: 2, name: 'Green Dispose Ltd', contact: 'Priya Sharma', email: 'contact@greendispose.com', trucks: 8, status: 'Active' },

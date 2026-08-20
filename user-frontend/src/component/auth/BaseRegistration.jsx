@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import {
     Users,
@@ -10,6 +12,7 @@ import {
 } from 'lucide-react';
 import Button from '../shared/Button';
 import { PRIMARY_COLOR } from '../../config';
+import { useAppNavigate } from '../../utils/navigation';
 
 const IconInput = ({ icon: Icon, placeholder, label, type = 'text', half = true }) => (
     <div className={`flex flex-col ${half ? 'md:w-1/2' : 'w-full'} p-2`}>
@@ -46,7 +49,10 @@ const FileUpload = ({ title, documentsAccepted, setFile, file }) => (
                 {file ? file.name : 'Choose file / No file chosen'}
             </label>
 
-            <ul className="text-xs text-gray-500 list-disc pl-5 mt-3">
+            <p className="text-xs text-gray-500 mt-3 font-medium">
+                Documents accepted:
+            </p>
+            <ul className="text-xs text-gray-500 list-disc pl-5 mt-1">
                 {documentsAccepted.map((doc, i) => (
                     <li key={i}>{doc}</li>
                 ))}
@@ -55,7 +61,9 @@ const FileUpload = ({ title, documentsAccepted, setFile, file }) => (
     </div>
 );
 
-const BaseRegistration = ({ navigate, type }) => {
+const BaseRegistration = ({ navigate: propNavigate, type }) => {
+    const appNavigate = useAppNavigate();
+    const navigate = propNavigate || appNavigate;
     const [identityFile, setIdentityFile] = useState(null);
     const [premisesFile, setPremisesFile] = useState(null);
 
