@@ -1,0 +1,24 @@
+# Root EAS Ignore for monorepo
+
+# Ignore everything in the backend and admin-frontend folders
+admin-frontend/
+backend/
+
+# Ignore node_modules everywhere
+node_modules/
+**/node_modules/
+
+# Ignore standard Expo artifacts
+.expo/
+**/ .expo/
+dist/
+**/dist/
+web-build/
+**/web-build/
+
+# Ignore Git directory
+.git/
+
+# Ignore local envs
+.env
+**/.env

@@ -1,0 +1,55 @@
+export const dustbinsData = [
+  {
+    id: 'B-01',
+    location: 'Navelim, Ward 1...',
+    type: 'General',
+    status: 'Good',
+    fillLevel: 45,
+    lastCleaned: '2024-12-28',
+    gps: { lat: 15.3, lng: 73.8 },
+  },
+  {
+    id: 'B-02',
+    location: 'Navelim, Ward 2...',
+    type: 'Recyclable',
+    status: 'Damaged',
+    fillLevel: 65,
+    lastCleaned: '2024-12-26',
+    gps: { lat: 15.31, lng: 73.81 },
+  },
+  {
+    id: 'B-03',
+    location: 'Navelim, Ward 3...',
+    type: 'Organic',
+    status: 'Need Replacement',
+    fillLevel: 95,
+    lastCleaned: '2024-12-20',
+    gps: { lat: 15.29, lng: 73.79 },
+  },
+  {
+    id: 'B-04',
+    location: 'Navelim, Ward 1, Main Street',
+    type: 'General',
+    status: 'Good',
+    fillLevel: 30,
+    lastCleaned: '2024-12-29',
+    gps: { lat: 15.32, lng: 73.82 },
+  },
+  {
+    id: 'B-05',
+    location: 'Navelim, Ward 2, School Road',
+    type: 'Recyclable',
+    status: 'Good',
+    fillLevel: 50,
+    lastCleaned: '2024-12-27',
+    gps: { lat: 15.3, lng: 73.8 },
+  },
+]
+
+export const mapPins = [
+  { id: 'B-01', lat: 15.3, lng: 73.8, status: 'Good' },
+  { id: 'B-02', lat: 15.31, lng: 73.81, status: 'Damaged' },
+  { id: 'B-03', lat: 15.29, lng: 73.79, status: 'Need Replacement' },
+  { id: 'B-04', lat: 15.32, lng: 73.82, status: 'Good' },
+  { id: 'B-05', lat: 15.3, lng: 73.8, status: 'Good' },
+]

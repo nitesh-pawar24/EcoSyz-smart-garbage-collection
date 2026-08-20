@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "40abce8b-9851-40e2-bece-b52a2c9aedb1"
+      }
+    },
+    "android": {
+      "package": "com.suraj4124.garbagesystem"
+    }
+  }
+}

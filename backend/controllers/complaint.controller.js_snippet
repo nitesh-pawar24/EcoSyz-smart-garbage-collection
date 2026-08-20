@@ -1,0 +1,35 @@
+export const getComplaintStats = async (req, res) => {
+  try {
+    const panchayatId = req.user.panchayatId;
+    const now = new Date();
+    const twentyFourHoursAgo = new Date(now - 24 * 60 * 60 * 1000);
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+    // 1. New Complaints (Last 24 hours)
+    const newComplaints = await Complaint.countDocuments({
+      panchayat: panchayatId,
+      createdAt: { $gte: twentyFourHoursAgo }
+    });
+
+    // 2. Pending Complaints (Status = Received)
+    const pendingComplaints = await Complaint.countDocuments({
+      panchayat: panchayatId,
+      status: 'Received'
+    });
+
+    // 3. Resolved Complaints (Resolved this month)
+    const resolvedComplaints = await Complaint.countDocuments({
+      panchayat: panchayatId,
+      status: 'Resolved',
+      resolvedAt: { $gte: startOfMonth }
+    });
+
+    res.json({
+      newComplaints,
+      pendingComplaints,
+      resolvedComplaints
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

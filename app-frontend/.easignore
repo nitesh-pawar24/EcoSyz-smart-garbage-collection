@@ -1,0 +1,17 @@
+# Standard ignores
+node_modules/
+.expo/
+dist/
+web-build/
+npm-debug.*
+yarn-error.*
+
+# Native generated folders
+android/
+ios/
+
+# Exclude backend and admin-frontend from the monorepo upload
+../admin-frontend/
+../backend/
+../.git/
+../node_modules/
