@@ -65,27 +65,26 @@ To evaluate the system, please use the following credentials for the respective 
 ### Super Admin Portal (Master Control)
 
 - **Portal**: [Super Admin Frontend]
-- **Phone**: `7777777777`
+- **Phone**: `1111111111`
 - **OTP**: The OTP will be shown in a popup on your screen.
 
 ### Admin Portal (Panchayat Management)
 
 - **Portal**: [Admin Frontend]
-- **Phone**: `7498682926`
+- **Phone**: `9222222222`
 - **OTP**: Provide any simple testing OTP (e.g. `123456`) if prompted, or check the backend console logs.
 
 ### Household User Portal (Citizen Dashboard)
 
 - **Portal**: [User Frontend]
-- **Phone 1**: `9090909090`
-- **Phone 2**: `9988776655`
+- **Phone 1**: `9333333333`
+- **Phone 2**: `9444444444`
 - **OTP**: Provide any simple testing OTP (e.g. `123456`) if prompted, or check the backend console logs.
 
 ### Labour Mobile App (Garbage Collector App)
 
 - **Portal**: [App Frontend]
-- **Phone 1**: `2222222222`
-- **Phone 2**: `3333333333`
+- **Phone 1**: `9876543210`
 - **OTP**: Provide any simple testing OTP (e.g. `123456`) if prompted, or check the backend console logs.
 
 > **Note:** All logins use OTP (One-Time Password) based authentication. During local testing, the OTP may be printed directly in the backend terminal console. Ensure the backend server is running to view these testing OTPs.
