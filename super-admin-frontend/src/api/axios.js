@@ -31,16 +31,13 @@ api.interceptors.response.use(
   (error) => {
     if (typeof window !== "undefined" && error.response) {
       if (error.response.status === 401) {
-        if (!window.location.pathname.toLowerCase().includes("/login")) {
-          if (!sessionStorage.getItem("reloaded-for-401")) {
-            sessionStorage.setItem("reloaded-for-401", "true");
-            toast.error("Session timeout please login again");
-            setTimeout(() => {
-              window.location.href = "/login";
-            }, 2000);
-          }
-        } else {
-          sessionStorage.removeItem("reloaded-for-401");
+        if (!sessionStorage.getItem("reloaded-for-401")) {
+          sessionStorage.setItem("reloaded-for-401", "true");
+          toast.error("Session timeout please login again");
+          const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3000";
+          setTimeout(() => {
+            window.location.href = adminUrl;
+          }, 2000);
         }
       } else if (
         error.response.status === 403 &&

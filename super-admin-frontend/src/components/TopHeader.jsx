@@ -38,7 +38,8 @@ export default function TopHeader({ onMenuClick }) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       sessionStorage.clear();
-      window.location.href = '/login';
+      const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3000";
+      window.location.href = adminUrl;
     }
   };
 

@@ -58,11 +58,24 @@ export default function Login() {
     try {
       setLoading(true);
       const res = await api.post("/auth/verify-otp", { mobile, otp });
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
+      const { token, user } = res.data;
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
       }
       toast.success("Login successful");
-      router.replace("/dashboard");
+
+      const role = user?.role;
+      if (role === "COMPANY_ADMIN") {
+        const superAdminUrl = process.env.NEXT_PUBLIC_SUPER_ADMIN_URL || "http://localhost:3001";
+        window.location.href = `${superAdminUrl}/dashboard`;
+      } else if (role === "ADMIN" || role === "PANCHAYAT_ADMIN") {
+        router.replace("/dashboard");
+      } else {
+        toast.error("Unauthorized: Your role does not have administrative access.");
+      }
     } catch (err) {
       toast.error(err.response?.data?.message || err.message || "Invalid OTP");
     } finally { setLoading(false); }
@@ -160,21 +173,21 @@ export default function Login() {
         {/* Hero text */}
         <div>
           <h1 className="text-5xl font-black text-gray-800 leading-tight mb-6">
-            Welcome,<br />
+            Welcome to<br />
             <span style={{ background: 'linear-gradient(135deg, #1f9e9a, #22c55e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              Admin
+              EcoSyz Portal
             </span>
           </h1>
           <p className="text-gray-500 text-base leading-relaxed max-w-xs">
-            Manage your panchayat's waste collection, employees, and complaints from one powerful dashboard.
+            Sign in to manage waste collection, panchayats, subscriptions, and operations from your administrative dashboard.
           </p>
 
           {/* Feature pills */}
           <div className="flex flex-col gap-3 mt-8">
             {[
-              { feat: 'Real-time waste tracking', color: '#1f9e9a' },
-              { feat: 'Employee attendance', color: '#22c55e' },
-              { feat: 'Complaint resolution', color: '#0d9488' },
+              { feat: 'Panchayat & waste tracking', color: '#1f9e9a' },
+              { feat: 'Subscriptions & employees', color: '#22c55e' },
+              { feat: 'Complaints & support resolution', color: '#0d9488' },
             ].map(({ feat, color }) => (
               <div key={feat} className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: color }} />
@@ -215,7 +228,7 @@ export default function Login() {
             {/* Logo (mobile only) */}
             <div className="lg:hidden flex items-center gap-3 mb-8">
               <img src={logoSrc} alt="EcoSyz Logo" className="w-9 h-9 object-contain drop-shadow-sm" />
-              <p className="text-gray-800 font-bold">EcoSyz Admin</p>
+              <p className="text-gray-800 font-bold">EcoSyz Portal</p>
             </div>
 
             {/* Header */}

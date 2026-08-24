@@ -29,9 +29,19 @@ export default function ProtectedRoute({ children }) {
       try {
         const { data: meData } = await api.get("/auth/me");
 
-        // Prevent Super Admin from entering Panchayat Admin panel
+        // Prevent Super Admin from entering Panchayat Admin panel -> redirect to Super Admin
         if (meData?.user?.role === "COMPANY_ADMIN") {
-          toast.error("Super Admins must use the Super Admin panel.");
+          if (alive) {
+            setStatus("unauthorized");
+            const superAdminUrl = process.env.NEXT_PUBLIC_SUPER_ADMIN_URL || "http://localhost:3001";
+            window.location.href = `${superAdminUrl}/dashboard`;
+          }
+          return;
+        }
+
+        // Only allow ADMIN and PANCHAYAT_ADMIN
+        if (meData?.user?.role !== "ADMIN" && meData?.user?.role !== "PANCHAYAT_ADMIN") {
+          toast.error("Unauthorized: Access denied for this portal.");
           if (alive) {
             setStatus("unauthorized");
             router.replace("/");

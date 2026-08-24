@@ -8,12 +8,21 @@ export default function RootPage() {
   const router = useRouter();
 
   useEffect(() => {
+    const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3000";
+
     const checkAuth = async () => {
       try {
-        await api.get("/auth/me");
-        router.replace("/dashboard");
+        const { data } = await api.get("/auth/me");
+        const role = data?.user?.role;
+        if (role === "COMPANY_ADMIN") {
+          router.replace("/dashboard");
+        } else if (role === "ADMIN" || role === "PANCHAYAT_ADMIN") {
+          window.location.href = `${adminUrl}/dashboard`;
+        } else {
+          window.location.href = adminUrl;
+        }
       } catch {
-        router.replace("/login");
+        window.location.href = adminUrl;
       }
     };
     checkAuth();

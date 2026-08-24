@@ -1,28 +1,44 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import api from "../../api/axios";
 
 export default function ProtectedDashboardLayout({ children }) {
-  const router = useRouter();
   const [authLoading, setAuthLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
+    const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3000";
+
     const checkAuth = async () => {
       try {
-        await api.get("/auth/me");
-        if (isMounted) {
-          setIsAuthenticated(true);
-          setAuthLoading(false);
+        const { data } = await api.get("/auth/me");
+        const role = data?.user?.role;
+
+        if (role === "COMPANY_ADMIN") {
+          if (isMounted) {
+            setIsAuthorized(true);
+            setAuthLoading(false);
+          }
+        } else if (role === "ADMIN" || role === "PANCHAYAT_ADMIN") {
+          if (isMounted) {
+            setIsAuthorized(false);
+            setAuthLoading(false);
+            window.location.href = `${adminUrl}/dashboard`;
+          }
+        } else {
+          if (isMounted) {
+            setIsAuthorized(false);
+            setAuthLoading(false);
+            window.location.href = adminUrl;
+          }
         }
       } catch {
         if (isMounted) {
-          setIsAuthenticated(false);
+          setIsAuthorized(false);
           setAuthLoading(false);
-          router.replace("/login");
+          window.location.href = adminUrl;
         }
       }
     };
@@ -31,7 +47,7 @@ export default function ProtectedDashboardLayout({ children }) {
     return () => {
       isMounted = false;
     };
-  }, [router]);
+  }, []);
 
   if (authLoading) {
     return (
@@ -42,9 +58,10 @@ export default function ProtectedDashboardLayout({ children }) {
     );
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthorized) {
     return null;
   }
 
   return children;
 }
+
