@@ -1,25 +1,41 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import TicketOverviewCard from '../components/TicketOverviewCard';
 import TicketsTable from '../components/TicketsTable';
-
-const overviewStats = [
-  { id: 1, title: 'Open Tickets',  count: '2',  description: 'Needs immediate attention', icon: 'open'     },
-  { id: 2, title: 'In Progress',   count: '5',  description: 'Currently being handled',   icon: 'progress' },
-  { id: 3, title: 'Solved',        count: '10', description: 'Successfully closed',        icon: 'solved'   },
-];
-
-const ticketData = [
-  { id: 1, ticketId: 'T-01', panchayatName: 'Mapusa Panchayat',  issueType: 'Payment Issue',         createdDate: 'Oct 25, 2025, 10:42 AM', status: 'Open'        },
-  { id: 2, ticketId: 'T-02', panchayatName: 'Verma Panchayat',   issueType: 'Technical Bug',         createdDate: 'Oct 25, 2025, 10:42 AM', status: 'In Progress' },
-  { id: 3, ticketId: 'T-03', panchayatName: 'Navelim Panchayat', issueType: 'Subscription Inquiry',  createdDate: 'Oct 25, 2025, 10:42 AM', status: 'Resolved'    },
-  { id: 4, ticketId: 'T-04', panchayatName: 'Varca Panchayat',   issueType: 'Login Issue',           createdDate: 'Oct 25, 2025, 10:42 AM', status: 'Resolved'    },
-];
+import api from '../api/axios';
 
 export default function SupportQueries() {
   const [selectedFilter, setSelectedFilter] = useState('All');
+  const [stats, setStats] = useState({ open: 0, inProgress: 0, resolved: 0 });
+  const [ticketData, setTicketData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchTickets = async () => {
+    try {
+      setLoading(true);
+      const res = await api.get('/company/tickets');
+      if (res.data) {
+        setStats(res.data.stats || { open: 0, inProgress: 0, resolved: 0 });
+        setTicketData(res.data.tickets || []);
+      }
+    } catch (err) {
+      console.error('Failed to fetch tickets', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTickets();
+  }, []);
+
+  const overviewStats = [
+    { id: 1, title: 'Open Tickets',  count: String(stats.open ?? 0),       description: 'Needs immediate attention', icon: 'open'     },
+    { id: 2, title: 'In Progress',   count: String(stats.inProgress ?? 0), description: 'Currently being handled',   icon: 'progress' },
+    { id: 3, title: 'Solved',        count: String(stats.resolved ?? 0),   description: 'Successfully closed',        icon: 'solved'   },
+  ];
 
   return (
     <Layout>
@@ -35,7 +51,11 @@ export default function SupportQueries() {
           <div className="text-[13px] text-slate-400 mt-1">Manage queries raised by panchayats</div>
         </div>
         <div className="p-0 md:px-6 md:pb-6 overflow-x-auto custom-scrollbar">
-          <TicketsTable ticketData={ticketData} selectedFilter={selectedFilter} onFilterChange={setSelectedFilter} />
+          {loading ? (
+            <div className="p-10 text-center text-slate-400 text-sm">Loading support tickets…</div>
+          ) : (
+            <TicketsTable ticketData={ticketData} selectedFilter={selectedFilter} onFilterChange={setSelectedFilter} />
+          )}
         </div>
       </div>
     </Layout>

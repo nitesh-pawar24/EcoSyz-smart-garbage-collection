@@ -55,7 +55,12 @@ export const createPanchayat = async (req, res) => {
  */
 export const listPanchayats = async (req, res) => {
   const { status } = req.query
-  const filter = status ? { status } : {}
+  let filter = {}
+  if (status) {
+    filter = { status }
+  } else {
+    filter = { status: { $ne: 'rejected' } }
+  }
 
   const panchayats = await Panchayat.find(filter).sort({ createdAt: -1 })
   res.status(200).json(panchayats)

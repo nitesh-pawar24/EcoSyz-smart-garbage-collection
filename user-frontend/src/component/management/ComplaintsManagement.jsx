@@ -54,12 +54,12 @@ const ComplaintsManagement = ({ navigate: propNavigate }) => {
                         <button onClick={() => navigate('admin-dashboard')} className="text-red-600 hover:text-red-700 mb-4">
                             ← Back to Admin
                         </button>
-                        <h1 className="text-4xl font-bold text-gray-900">Complaints Management</h1>
-                        <p className="text-gray-600 mt-2">Total Complaints: {complaints.length}</p>
+                        <h1 className="text-4xl font-bold text-gray-900">Feedback Management</h1>
+                        <p className="text-gray-600 mt-2">Total Feedback: {complaints.length}</p>
                     </div>
                     <Button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg flex items-center gap-2">
                         <Plus className="w-5 h-5" />
-                        Add Complaint
+                        Add Feedback
                     </Button>
                 </div>
 
@@ -68,7 +68,7 @@ const ComplaintsManagement = ({ navigate: propNavigate }) => {
                     <Search className="absolute left-4 top-3 text-gray-400 w-5 h-5" />
                     <input
                         type="text"
-                        placeholder="Search complaints..."
+                        placeholder="Search feedback..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full pl-12 pr-4 py-3 rounded-lg border-2 border-red-200 focus:border-red-600 focus:outline-none"

@@ -51,7 +51,7 @@ const Footer = ({ navigate: propNavigate }) => {
                 <div>
                     <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Navigation</h3>
                     <ul className="space-y-2.5">
-                        {[['Home', 'home'], ['About', 'about'], ['Contact', 'contact'], ['Submit Complaint', 'complaint']].map(([label, view]) => (
+                        {[['Home', 'home'], ['About', 'about'], ['Contact', 'contact'], ['Submit Feedback', 'complaint']].map(([label, view]) => (
                             <li key={view}>
                                 <button
                                     onClick={() => navigate && navigate(view)}

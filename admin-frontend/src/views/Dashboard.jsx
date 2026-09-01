@@ -60,17 +60,17 @@ export default function Dashboard() {
 
       {/* Row 1: Complaints KPI */}
       <section>
-        <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Complaints Overview</h2>
+        <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Feedback Overview</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               <KPICard
-                title="New Complaints"
+                title="New Feedback"
                 value={safeStats.newComplaints}
                 subtitle="In last 24 hours"
                 icon={AlertCircle}
                 color="blue"
               />
               <KPICard
-                title="Pending Complaints"
+                title="Pending Feedback"
                 value={safeStats.pendingComplaints}
                 subtitle="Status: Received"
                 icon={Clock}
@@ -79,7 +79,7 @@ export default function Dashboard() {
               <KPICard
                 title="Resolved This Month"
                 value={safeStats.resolvedComplaints}
-                subtitle="Resolved complaints"
+                subtitle="Resolved feedback"
                 icon={CheckCircle2}
                 color="green"
               />

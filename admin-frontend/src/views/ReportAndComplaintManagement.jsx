@@ -76,7 +76,7 @@ export default function ReportAndComplaintManagement() {
   })
 
   const handleDownloadCSV = () => {
-    const headers = ['Complaint ID', 'Date', 'Name', 'Category', 'Ward', 'Status', 'Assigned To']
+    const headers = ['Feedback ID', 'Date', 'Name', 'Category', 'Ward', 'Status', 'Assigned To']
     const rows = filteredComplaints.map(c => [
       c.id, c.dateSubmitted, c.name, c.category, c.ward, c.status,
       c.assignedEmployee ? c.assignedEmployee.name : 'Unassigned'
@@ -85,7 +85,7 @@ export default function ReportAndComplaintManagement() {
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
     const link = document.createElement('a')
     link.href = URL.createObjectURL(blob)
-    link.download = `complaints_report_${new Date().toISOString().split('T')[0]}.csv`
+    link.download = `feedback_report_${new Date().toISOString().split('T')[0]}.csv`
     link.click()
     setShowDownloadMenu(false)
   }
@@ -93,7 +93,7 @@ export default function ReportAndComplaintManagement() {
   const handleDownloadPDF = () => {
     try {
       const doc = new jsPDF()
-      doc.text('Complaints Report', 14, 15)
+      doc.text('Feedback Report', 14, 15)
       doc.setFontSize(10)
       doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 22)
       autoTable(doc, {
@@ -105,7 +105,7 @@ export default function ReportAndComplaintManagement() {
         ]),
         headStyles: { fillColor: [31, 158, 154] },
       })
-      doc.save(`complaints_report_${new Date().toISOString().split('T')[0]}.pdf`)
+      doc.save(`feedback_report_${new Date().toISOString().split('T')[0]}.pdf`)
       setShowDownloadMenu(false)
     } catch (error) {
       toast.error(`Failed to download PDF: ${error.message}`)
@@ -125,9 +125,9 @@ export default function ReportAndComplaintManagement() {
     try {
       await api.patch(`/complaints/${complaintId}`, updatedData)
       fetchData()
-      toast.success("Complaint updated successfully")
+      toast.success("Feedback updated successfully")
     } catch (error) {
-      toast.error('Failed to update complaint')
+      toast.error('Failed to update feedback')
     }
   }
 
@@ -219,7 +219,7 @@ export default function ReportAndComplaintManagement() {
             items.map(c => <KanbanCard key={c.id} complaint={c} columnStatus={status} />)
           ) : (
             <div className="text-center py-10 text-gray-400">
-              <p className="text-sm font-medium">No {title.toLowerCase()} complaints</p>
+              <p className="text-sm font-medium">No {title.toLowerCase()} feedback</p>
             </div>
           )}
         </div>
@@ -230,16 +230,16 @@ export default function ReportAndComplaintManagement() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="text-xs text-gray-400 font-medium mb-0.5">Main › Reports & Complaints</p>
-        <h1 className="text-xl font-black text-gray-800">Report & Complaint Management</h1>
+        <p className="text-xs text-gray-400 font-medium mb-0.5">Main › Reports & Feedback</p>
+        <h1 className="text-xl font-black text-gray-800">Report & Feedback Management</h1>
       </div>
 
       {/* KPI Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
         {[
-          { label: 'New Complaints', value: String(metrics.new).padStart(2, '0'), sub: 'Status: Received', icon: AlertCircle, color: 'from-rose-500 to-rose-700' },
-          { label: 'Pending Complaints', value: String(metrics.pending).padStart(2, '0'), sub: 'In Progress or Unassigned', icon: Clock, color: 'from-amber-500 to-amber-700' },
-          { label: 'Resolved Complaints', value: metrics.resolved, sub: 'Total Resolved', icon: CheckCircle2, color: 'from-emerald-500 to-emerald-700' },
+          { label: 'New Feedback', value: String(metrics.new).padStart(2, '0'), sub: 'Status: Received', icon: AlertCircle, color: 'from-rose-500 to-rose-700' },
+          { label: 'Pending Feedback', value: String(metrics.pending).padStart(2, '0'), sub: 'In Progress or Unassigned', icon: Clock, color: 'from-amber-500 to-amber-700' },
+          { label: 'Resolved Feedback', value: metrics.resolved, sub: 'Total Resolved', icon: CheckCircle2, color: 'from-emerald-500 to-emerald-700' },
         ].map(({ label, value, sub, icon: Icon, color }) => (
           <div key={label} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex items-center gap-4">
             <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center shadow-sm flex-shrink-0`}>
@@ -258,7 +258,7 @@ export default function ReportAndComplaintManagement() {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm mb-6">
         {/* Toolbar */}
         <div className="px-6 py-4 border-b border-gray-50 flex items-center gap-3 flex-wrap">
-          <h2 className="text-sm font-bold text-gray-700 uppercase tracking-wider">Complaints Table</h2>
+          <h2 className="text-sm font-bold text-gray-700 uppercase tracking-wider">Feedback Table</h2>
 
           <div className="ml-auto flex items-center gap-2">
             {/* Search */}
@@ -324,16 +324,16 @@ export default function ReportAndComplaintManagement() {
           <table className="w-full text-sm">
             <thead>
               <tr>
-                {['Complaint ID', 'Date', 'Name', 'Category', 'Ward', 'Photo', 'Status', 'Assigned', 'View'].map(h => (
+                {['Feedback ID', 'Date', 'Name', 'Category', 'Ward', 'Photo', 'Status', 'Assigned', 'View'].map(h => (
                   <th key={h} className="px-4 py-3.5 text-left text-white text-[10px] font-bold uppercase tracking-wider bg-[#1f9e9a]">{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               {loading ? (
-                <tr><td colSpan="9" className="px-4 py-12 text-center text-gray-400 text-sm">Loading complaints…</td></tr>
+                <tr><td colSpan="9" className="px-4 py-12 text-center text-gray-400 text-sm">Loading feedback…</td></tr>
               ) : filteredComplaints.length === 0 ? (
-                <tr><td colSpan="9" className="px-4 py-12 text-center text-gray-400 text-sm">No complaints found.</td></tr>
+                <tr><td colSpan="9" className="px-4 py-12 text-center text-gray-400 text-sm">No feedback found.</td></tr>
               ) : (
                 filteredComplaints.map((complaint, idx) => (
                   <tr key={idx} className={`transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'} hover:bg-teal-50/30`}>

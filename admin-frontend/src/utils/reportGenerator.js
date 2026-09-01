@@ -46,7 +46,7 @@ export const generatePDF = (report) => {
                 item.collectionCount
             ])
         }
-        else if (reportType === 'Complaint & Grievance Resolution Times') {
+        else if (reportType === 'Complaint & Grievance Resolution Times' || reportType === 'Feedback and Grievance Resolution Times' || reportType === 'Feedback & Grievance Resolution Times') {
             doc.text(`Avg Resolution Time: ${reportData.avgResolutionTimeHours} Hours`, 14, 40)
             
             head = [['Status', 'Count']]
@@ -89,7 +89,7 @@ export const generatePDF = (report) => {
             const stats = reportData.stats || []
             
             if (subType === 'complaint') {
-                head = [['Year', 'Total Complaints', 'Resolved Count', 'Resolution Rate (%)']]
+                head = [['Year', 'Total Feedback', 'Resolved Count', 'Resolution Rate (%)']]
                 body = stats.map(item => [item.year, item.totalComplaints, item.resolvedCount, item.resolutionRate?.toFixed(2)])
             } else if (subType === 'attendance') {
                 head = [['Year', 'Total Present Days']]
@@ -127,7 +127,7 @@ export const generateExcel = (report) => {
         const apiResponse = report.data
         const reportData = apiResponse.data || apiResponse
     
-        if (reportType === 'Complaint & Grievance Resolution Times') {
+        if (reportType === 'Complaint & Grievance Resolution Times' || reportType === 'Feedback and Grievance Resolution Times' || reportType === 'Feedback & Grievance Resolution Times') {
              wsData = reportData.statusBreakdown
         } else if (reportType === 'Year-on-Year comparison charts') {
              wsData = reportData.stats || []

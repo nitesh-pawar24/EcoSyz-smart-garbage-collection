@@ -106,7 +106,7 @@ export default function ViewReportModal({ isOpen, onClose, report }) {
                 )
             }
 
-            if (type === 'Complaint & Grievance Resolution Times') {
+            if (type === 'Complaint & Grievance Resolution Times' || type === 'Feedback & Grievance Resolution Times') {
                 const stats = data?.statusBreakdown || []
                 return (
                     <div className="space-y-6">

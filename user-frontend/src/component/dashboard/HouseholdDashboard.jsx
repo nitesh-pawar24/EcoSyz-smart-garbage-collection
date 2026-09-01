@@ -180,7 +180,7 @@ const HouseholdDashboard = ({ navigate: propNavigate }) => {
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                     <StatCard delay={0} icon={Truck}        label="Total Pickups"    value={dashboardData.totalPickups}    sub="All time"         gradient="bg-gradient-to-br from-blue-500 to-blue-600" />
                     <StatCard delay={1} icon={Calendar}     label="This Month"       value={dashboardData.thisMonthPickups}     sub="Scheduled"        gradient="bg-gradient-to-br from-green-500 to-emerald-500" />
-                    <StatCard delay={2} icon={AlertCircle}  label="Open Complaints"  value={openComplaints}  sub="Awaiting resolution" gradient="bg-gradient-to-br from-amber-500 to-orange-500" />
+                    <StatCard delay={2} icon={AlertCircle}  label="Open Feedback"    value={openComplaints}  sub="Awaiting resolution" gradient="bg-gradient-to-br from-amber-500 to-orange-500" />
                     <StatCard delay={3} icon={Recycle}      label="Compliance"       value={`${dashboardData.ecoScore}%`}   sub="Segregation score" gradient="bg-gradient-to-br from-purple-500 to-purple-600" />
                 </div>
 
@@ -193,7 +193,7 @@ const HouseholdDashboard = ({ navigate: propNavigate }) => {
                         {selectedPanchayat?.isScheduleEnabled !== false && (
                             <QuickAction delay={5} label="Schedule Pickup"    icon={Calendar}   bg="bg-blue-50/60 border-blue-100 hover:border-blue-300"    iconColor="bg-blue-100 text-blue-600"    onClick={() => navigate('schedule-booking')} />
                         )}
-                        <QuickAction delay={6} label="Submit Complaint"   icon={AlertCircle} bg="bg-red-50/60 border-red-100 hover:border-red-300"       iconColor="bg-red-100 text-red-500"      onClick={() => navigate('complaint')} />
+                        <QuickAction delay={6} label="Submit Feedback"   icon={AlertCircle} bg="bg-red-50/60 border-red-100 hover:border-red-300"       iconColor="bg-red-100 text-red-500"      onClick={() => navigate('complaint')} />
                     </div>
                 </motion.div>
 
@@ -309,18 +309,18 @@ const HouseholdDashboard = ({ navigate: propNavigate }) => {
                     </motion.div>
                 </div>
 
-                {/* ── RECENT COMPLAINTS ── */}
+                {/* ── RECENT FEEDBACK ── */}
                 <motion.div variants={fadeUp} custom={7} initial="hidden" animate="visible" className="card p-6">
                     <div className="flex items-center justify-between mb-5">
                         <div>
-                            <h2 className="text-base font-display font-bold text-gray-900">Recent Complaints</h2>
+                            <h2 className="text-base font-display font-bold text-gray-900">Recent Feedback</h2>
                             <p className="text-xs text-gray-400 mt-0.5">{complaints.length} total · {openComplaints} open</p>
                         </div>
                         <button
                             onClick={() => navigate('complaint')}
                             className="flex items-center gap-1.5 text-xs font-semibold text-green-700 hover:text-green-800 transition-colors"
                         >
-                            <Plus className="w-3.5 h-3.5" /> New Complaint
+                            <Plus className="w-3.5 h-3.5" /> New Feedback
                         </button>
                     </div>
 
@@ -331,7 +331,7 @@ const HouseholdDashboard = ({ navigate: propNavigate }) => {
                     ) : complaints.length === 0 ? (
                         <div className="text-center py-12">
                             <FileText className="w-10 h-10 text-gray-200 mx-auto mb-3" />
-                            <p className="text-gray-400 text-sm">No complaints submitted yet.</p>
+                            <p className="text-gray-400 text-sm">No feedback submitted yet.</p>
                         </div>
                     ) : (
                         <div className="space-y-2">
@@ -349,7 +349,7 @@ const HouseholdDashboard = ({ navigate: propNavigate }) => {
                                             {c.photo ? (
                                                 <img 
                                                     src={`http://localhost:10000/${c.photo}`} 
-                                                    alt="Complaint" 
+                                                    alt="Feedback" 
                                                     className="w-full h-full object-cover"
                                                     onError={(e) => { e.target.onerror = null; e.target.style.display = 'none'; e.target.parentElement.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>'; }}
                                                 />

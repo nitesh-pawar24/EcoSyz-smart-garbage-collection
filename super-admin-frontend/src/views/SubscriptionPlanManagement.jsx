@@ -8,7 +8,7 @@ import api from "../api/axios";
 
 const plans = [
   { id: 1, name: "Basic",    price: "₹1,499", period: "/year", popular: false, features: ["Max 100 HH","Max 10 Labourers","Basic analytics dashboard","Household registration","Waste tracking","Email support"] },
-  { id: 2, name: "Standard", price: "₹2,699", period: "/year", popular: true,  badge: "Most Popular", features: ["Max 300 HH","Max 30 Labourers","Advanced analytics & insights","Labour attendance tracking","Complaint & ticket system","Monthly performance reports"] },
+  { id: 2, name: "Standard", price: "₹2,699", period: "/year", popular: true,  badge: "Most Popular", features: ["Max 300 HH","Max 30 Labourers","Advanced analytics & insights","Labour attendance tracking","Feedback & ticket system","Monthly performance reports"] },
   { id: 3, name: "Premium",  price: "₹5,999", period: "/year", popular: false, features: ["Max 500 HH","Max 50 Labourers","AI-based waste trend prediction","Route optimization","Priority support team","Dedicated account manager"] },
 ];
 

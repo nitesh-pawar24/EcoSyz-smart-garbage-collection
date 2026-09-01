@@ -12,8 +12,8 @@ const stats = [
     { icon: Truck, label: 'Pickups This Month', value: '1,840', sub: '+12% vs last month', color: 'bg-green-50 text-green-600' },
     { icon: BarChart2, label: 'Waste Collected', value: '35 Tons', sub: 'Monthly average', color: 'bg-amber-50 text-amber-600' },
     { icon: Users, label: 'Active Workers', value: '48', sub: 'On ground daily', color: 'bg-purple-50 text-purple-600' },
-    { icon: CheckCircle2, label: 'Complaints Resolved', value: '92%', sub: 'Within 48 hours', color: 'bg-emerald-50 text-emerald-600' },
-    { icon: AlertCircle, label: 'Open Complaints', value: '17', sub: 'Under review', color: 'bg-red-50 text-red-500' },
+    { icon: CheckCircle2, label: 'Feedback Resolved', value: '92%', sub: 'Within 48 hours', color: 'bg-emerald-50 text-emerald-600' },
+    { icon: AlertCircle, label: 'Open Feedback', value: '17', sub: 'Under review', color: 'bg-red-50 text-red-500' },
 ];
 
 const wasteBreakdown = [

@@ -44,7 +44,7 @@ const steps = [
         step: '05',
         icon: CheckCircle2,
         title: 'Confirm & Report',
-        description: 'If a collection is missed or an issue occurs, submit a complaint from your dashboard. Our team will resolve it within 24–48 hours.',
+        description: 'If a collection is missed or an issue occurs, submit feedback from your dashboard. Our team will resolve it within 24–48 hours.',
         color: 'from-rose-500 to-pink-400',
         bg: 'bg-rose-50 text-rose-600',
     },

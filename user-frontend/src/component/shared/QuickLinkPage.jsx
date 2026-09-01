@@ -48,7 +48,7 @@ const QuickLinkPage = ({ navigate: propNavigate, title }) => {
                         <li>Workers scan QR codes for attendance with GPS verification (20m accuracy).</li>
                         <li>Collection routes are tracked using real-time GPS monitoring.</li>
                         <li>Offline data collection supported – syncs automatically.</li>
-                        <li>Citizens can register complaints digitally.</li>
+                        <li>Citizens can register feedback digitally.</li>
                         <li>Admin dashboard provides real-time analytics & performance reports.</li>
                         <li>Monthly waste statistics improve transparency.</li>
                     </ul>
@@ -60,15 +60,15 @@ const QuickLinkPage = ({ navigate: propNavigate, title }) => {
             );
         }
 
-        /* ================= SUBMIT COMPLAINT ================= */
+        /* ================= SUBMIT FEEDBACK ================= */
 
-        if (title === 'Submit Complaint') {
+        if (title === 'Submit Complaint' || title === 'Submit Feedback') {
 
             if (submittedComplaint) {
                 return (
                     <div className="bg-green-50 p-6 rounded-xl border border-green-300 text-left">
                         <h3 className="text-xl font-bold text-green-800 mb-4">
-                            Complaint Submitted Successfully
+                            Feedback Submitted Successfully
                         </h3>
 
                         <p><strong>Name:</strong> {submittedComplaint.name}</p>
@@ -81,7 +81,7 @@ const QuickLinkPage = ({ navigate: propNavigate, title }) => {
                                 primary={true}
                                 onClick={() => setSubmittedComplaint(null)}
                             >
-                                Submit Another Complaint
+                                Submit Another Feedback
                             </Button>
                         </div>
                     </div>
@@ -118,7 +118,7 @@ const QuickLinkPage = ({ navigate: propNavigate, title }) => {
                         required
                         className="w-full p-3 border rounded-lg"
                     >
-                        <option value="">Select Complaint Type</option>
+                        <option value="">Select Feedback Type</option>
                         <option>Missed Collection</option>
                         <option>Overflowing Bin</option>
                         <option>Illegal Dumping</option>
@@ -137,7 +137,7 @@ const QuickLinkPage = ({ navigate: propNavigate, title }) => {
 
                     <div className="flex justify-center pt-4">
                         <Button primary={true} className="px-12 py-3 text-lg">
-                            Submit Complaint
+                            Submit Feedback
                         </Button>
                     </div>
                 </form>

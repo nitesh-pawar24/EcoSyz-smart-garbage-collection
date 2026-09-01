@@ -15,7 +15,7 @@ const faqCategories = [
         faqs: [
             {
                 q: 'What is EcoSyz?',
-                a: 'EcoSyz is a smart, government-backed waste management platform that connects households with their local Panchayat for scheduled waste pickups, complaint tracking, and real-time collection updates.'
+                a: 'EcoSyz is a smart, government-backed waste management platform that connects households with their local Panchayat for scheduled waste pickups, feedback tracking, and real-time collection updates.'
             },
             {
                 q: 'Who can use EcoSyz?',
@@ -73,19 +73,19 @@ const faqCategories = [
     },
     {
         id: 'complaints',
-        label: 'Complaints & Support',
+        label: 'Feedback & Support',
         faqs: [
             {
                 q: 'How do I report a missed bin collection?',
-                a: 'Click Submit Complaint in the top navigation or from your dashboard. Select "Missed Bin", enter your location/ward, attach a photo if available, and submit. You can track resolution status in real time.'
+                a: 'Click Submit Feedback in the top navigation or from your dashboard. Select "Missed Bin", enter your location/ward, attach a photo if available, and submit. You can track resolution status in real time.'
             },
             {
-                q: 'How long does it take to resolve a complaint?',
-                a: 'Most complaints are addressed within 24–48 hours. Complex issues may take up to 5 working days. You can track the status in your Dashboard.'
+                q: 'How long does it take to address feedback?',
+                a: 'Most feedback and issues are addressed within 24–48 hours. Complex issues may take up to 5 working days. You can track the status in your Dashboard.'
             },
             {
-                q: 'Can I submit a complaint without logging in?',
-                a: 'Basic complaints can be submitted without an account, but you won\'t be able to track the status. We recommend logging in for a complete experience.'
+                q: 'Can I submit feedback without logging in?',
+                a: 'Basic feedback can be submitted without an account, but you won\'t be able to track the status. We recommend logging in for a complete experience.'
             },
         ]
     },

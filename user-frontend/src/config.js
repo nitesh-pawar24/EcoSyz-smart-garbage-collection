@@ -8,7 +8,7 @@ export const ACCENT_COLOR = 'emerald-600';
 
 export const quickLinks = [
     { name: 'How it works', view: 'howItWorks' },
-    { name: 'Submit Complaint', view: 'submitComplaint' },
+    { name: 'Submit Feedback', view: 'submitComplaint' },
     { name: 'Statistics', view: 'statisticsReports' },
     { name: 'View Schedule', view: 'viewSchedule' },
     { name: 'Guides / Resources', view: 'guidesResources' },
@@ -57,7 +57,7 @@ export const statisticsData = [
     { title: 'Total Houses Covered', value: '2,500+' },
     { title: 'Waste Collected (Monthly)', value: '35 Tons' },
     { title: 'Active Workers', value: '48' },
-    { title: 'Complaints Resolved', value: '92%' },
+    { title: 'Feedback Resolved', value: '92%' },
 ];
 
 export const scheduleData = [
@@ -81,14 +81,14 @@ export const scheduleData = [
 export const faqsData = [
     {
         question: 'How do I report a missed collection?',
-        answer: 'You can use the Submit Complaint form available in Quick Links.',
+        answer: 'You can use the Submit Feedback form available in Quick Links.',
     },
     {
         question: 'How is worker attendance verified?',
         answer: 'Attendance is verified using QR code scanning and GPS validation.',
     },
     {
-        question: 'Can I track complaint status?',
-        answer: 'Yes, complaints are logged and monitored by the Panchayat Admin dashboard.',
+        question: 'Can I track feedback status?',
+        answer: 'Yes, feedback is logged and monitored by the Panchayat Admin dashboard.',
     },
 ];

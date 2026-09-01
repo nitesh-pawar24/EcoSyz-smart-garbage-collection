@@ -54,7 +54,7 @@ export default function TicketDetailsModal({ open, onClose, ticket }) {
           <DetailRow icon={Layout} label="Issue Type" value={ticket.issueType} />
           <DetailRow icon={Clock} label="Created Date" value={ticket.createdDate} />
           <DetailRow icon={StatusIcon} label="Current Status" value={ticket.status} color={statusColor} />
-          <DetailRow icon={MessageSquare} label="Description" value="The panchayat is facing issues with the recent payment transaction. The amount was deducted but the subscription is not updated." />
+          <DetailRow icon={MessageSquare} label="Description" value={ticket.description || "No description provided."} />
         </div>
 
         {/* Footer */}

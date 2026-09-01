@@ -31,7 +31,7 @@ const features = [
 ];
 
 const quickActions = [
-    { icon: AlertCircle, label: 'Submit Complaint', view: 'complaint', color: 'from-red-500 to-rose-400' },
+    { icon: AlertCircle, label: 'Submit Feedback', view: 'complaint', color: 'from-red-500 to-rose-400' },
     { icon: Calendar, label: 'Schedule Pickup', view: 'schedule-booking', color: 'from-blue-500 to-cyan-400' },
     { icon: BarChart2, label: 'View Statistics', view: 'statisticsReports', color: 'from-purple-500 to-violet-400' },
 ];
@@ -314,7 +314,7 @@ const HomePage = ({ navigate: propNavigate }) => {
                                 <Leaf className="w-8 h-8 text-white" />
                             </div>
                             <h2 className="text-3xl font-display font-bold text-gray-900 mb-3">Join the Clean Revolution</h2>
-                            <p className="text-gray-500 mb-8">Log in to manage pickups, track complaints, and contribute to a cleaner Panchayat.</p>
+                            <p className="text-gray-500 mb-8">Log in to manage pickups, track feedback, and contribute to a cleaner Panchayat.</p>
                             <motion.button
                                 whileHover={{ scale: 1.04 }}
                                 whileTap={{ scale: 0.97 }}

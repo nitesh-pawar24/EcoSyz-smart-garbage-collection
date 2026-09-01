@@ -187,7 +187,7 @@ export default function Login() {
             {[
               { feat: 'Panchayat & waste tracking', color: '#1f9e9a' },
               { feat: 'Subscriptions & employees', color: '#22c55e' },
-              { feat: 'Complaints & support resolution', color: '#0d9488' },
+              { feat: 'Feedback & support resolution', color: '#0d9488' },
             ].map(({ feat, color }) => (
               <div key={feat} className="flex items-center gap-3">
                 <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: color }} />

@@ -49,7 +49,7 @@ const AdminDashboard = ({ navigate: propNavigate }) => {
                     { label: 'Total Users', value: systemStats.totalUsers, icon: <Users className="w-6 h-6" />, color: 'blue' },
                     { label: 'Active Companies', value: systemStats.activeCompanies, icon: <BarChart3 className="w-6 h-6" />, color: 'green' },
                     { label: 'Total Trucks', value: systemStats.totalTrucks, icon: <Truck className="w-6 h-6" />, color: 'orange' },
-                    { label: 'Pending Complaints', value: systemStats.pendingComplaints, icon: <AlertTriangle className="w-6 h-6" />, color: 'red' },
+                    { label: 'Pending Feedback', value: systemStats.pendingComplaints, icon: <AlertTriangle className="w-6 h-6" />, color: 'red' },
                 ].map((stat, i) => (
                     <motion.div
                         key={i}
@@ -85,7 +85,7 @@ const AdminDashboard = ({ navigate: propNavigate }) => {
                             { title: 'Users Management', desc: 'View and manage users', action: 'users-management', count: '2,450' },
                             { title: 'Companies', desc: 'Manage registered companies', action: 'companies-management', count: '45' },
                             { title: 'Fleet Operations', desc: 'Monitor trucks and drivers', action: 'fleet-management', count: '234' },
-                            { title: 'Complaints', desc: 'Handle user complaints', action: 'complaints-management', count: '12' },
+                            { title: 'Feedback', desc: 'Handle user feedback', action: 'complaints-management', count: '12' },
                         ].map((panel, i) => (
                             <motion.button
                                 key={i}

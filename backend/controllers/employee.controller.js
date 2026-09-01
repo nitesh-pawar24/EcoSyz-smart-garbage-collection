@@ -5,6 +5,7 @@ export const createEmployee = async (req, res) => {
   try {
     const {
       name,
+      employeeCode,
       phone,
       address,
       role,
@@ -14,27 +15,36 @@ export const createEmployee = async (req, res) => {
 
     const normalizePath = (p) => p?.replace(/\\/g, "/");
 
-    // Auto-generate Employee Code
-    const lastEmployee = await Employee.findOne(
-      { panchayat: req.user.panchayatId },
-      { employeeCode: 1 }
-    )
-      .sort({ createdAt: -1 })
-      .lean();
+    let finalCode = employeeCode?.trim();
 
-    let nextCode = "EMP001";
-    if (lastEmployee && lastEmployee.employeeCode) {
-      const match = lastEmployee.employeeCode.match(/^EMP(\d+)$/);
-      if (match) {
-        const nextNum = parseInt(match[1], 10) + 1;
-        nextCode = `EMP${String(nextNum).padStart(3, "0")}`;
-      }
+    // If employee code is not provided by user, auto-generate next code for this panchayat
+    if (!finalCode) {
+      const employees = await Employee.find(
+        { panchayat: req.user.panchayatId },
+        { employeeCode: 1 }
+      ).lean();
+
+      let maxNum = 0;
+      employees.forEach((emp) => {
+        if (emp.employeeCode) {
+          const matches = emp.employeeCode.match(/\d+/g);
+          if (matches) {
+            const num = parseInt(matches[matches.length - 1], 10);
+            if (!isNaN(num) && num > maxNum) {
+              maxNum = num;
+            }
+          }
+        }
+      });
+
+      const nextNum = maxNum + 1;
+      finalCode = `EMP${String(nextNum).padStart(3, "0")}`;
     }
 
     const employee = await Employee.create({
       panchayat: req.user.panchayatId,
       name,
-      employeeCode: nextCode,
+      employeeCode: finalCode,
       phone,
       address,
       role,
@@ -51,7 +61,10 @@ export const createEmployee = async (req, res) => {
     res.status(201).json(employee);
   } catch (err) {
     if (err.code === 11000) {
-      return res.status(400).json({ message: "Employee code already exists" });
+      if (err.keyPattern?.employeeCode || err.message?.includes("employeeCode")) {
+        return res.status(400).json({ message: "Employee code already exists in your Panchayat" });
+      }
+      return res.status(400).json({ message: "Duplicate entry detected. Please check your data." });
     }
     res.status(500).json({ message: err.message });
   }
@@ -114,6 +127,12 @@ export const updateEmployee = async (req, res) => {
 
     res.json(employee);
   } catch (err) {
+    if (err.code === 11000) {
+      if (err.keyPattern?.employeeCode || err.message?.includes("employeeCode")) {
+        return res.status(400).json({ message: "Employee code already exists in your Panchayat" });
+      }
+      return res.status(400).json({ message: "Duplicate entry detected. Please check your data." });
+    }
     res.status(500).json({ message: err.message });
   }
 };

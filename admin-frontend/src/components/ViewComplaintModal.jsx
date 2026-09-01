@@ -64,7 +64,7 @@ export default function ViewComplaintModal({ isOpen, onClose, complaint, onStatu
                 <FileText size={18} className="text-white" />
               </div>
               <div>
-                <p className="text-white/70 text-[10px] font-medium uppercase tracking-wider">Complaint Details</p>
+                <p className="text-white/70 text-[10px] font-medium uppercase tracking-wider">Feedback Details</p>
                 <h2 className="text-white font-bold text-sm">{complaint.id}</h2>
               </div>
             </div>
@@ -87,7 +87,7 @@ export default function ViewComplaintModal({ isOpen, onClose, complaint, onStatu
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-gray-600 mb-2">Complaint ID</label>
+                        <label className="block text-xs font-semibold text-gray-600 mb-2">Feedback ID</label>
                         <input
                           type="text"
                           value={complaint.id}
@@ -153,7 +153,7 @@ export default function ViewComplaintModal({ isOpen, onClose, complaint, onStatu
                           <div className="w-24 h-24 bg-gray-200 rounded flex items-center justify-center border border-gray-300 overflow-hidden">
                             <img
                               src={`http://localhost:10000/${complaint.photo}`}
-                              alt="Complaint"
+                              alt="Feedback"
                               className="w-full h-full object-cover"
                               onError={(e) => { e.target.onerror = null; e.target.style.display = 'none'; e.target.parentElement.innerText = '📷'; }}
                             />

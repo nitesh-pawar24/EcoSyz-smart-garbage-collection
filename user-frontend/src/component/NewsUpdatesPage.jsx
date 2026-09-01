@@ -12,11 +12,11 @@ import { useAppNavigate } from '../utils/navigation';
 const categories = ['All', 'Announcement', 'Event', 'Update', 'Alert'];
 
 const defaultNews = [
-    { id: 1, category: 'Announcement', title: 'EcoSyz App Launched for Households', summary: 'The new EcoSyz mobile-friendly platform is now live, allowing households to schedule pickups, submit complaints, and track collection in real time.', date: '20 Feb 2025', readTime: '2 min read', badge: 'badge-blue', image: '🚀' },
+    { id: 1, category: 'Announcement', title: 'EcoSyz App Launched for Households', summary: 'The new EcoSyz mobile-friendly platform is now live, allowing households to schedule pickups, submit feedback, and track collection in real time.', date: '20 Feb 2025', readTime: '2 min read', badge: 'badge-blue', image: '🚀' },
     { id: 2, category: 'Update', title: 'Ward 3 Collection Schedule Updated', summary: 'Starting March 1st, Ward 3 will have an additional Saturday morning pickup slot. Households with organic waste are encouraged to use this slot.', date: '18 Feb 2025', readTime: '1 min read', badge: 'badge-green', image: '📅' },
     { id: 3, category: 'Alert', title: 'Public Holiday — No Collection on 26 Feb', summary: 'Due to the public holiday, waste collection services will be suspended on February 26th. Regular schedule resumes on February 27th.', date: '15 Feb 2025', readTime: '1 min read', badge: 'badge-red', image: '⚠️' },
     { id: 4, category: 'Event', title: 'Plantation Drive — Join Us This Sunday', summary: 'The Panchayat is organizing a community plantation drive on March 2nd at Community Garden, Plot 5. Volunteers are welcome!', date: '12 Feb 2025', readTime: '2 min read', badge: 'badge-green', image: '🌿' },
-    { id: 5, category: 'Announcement', title: 'New Complaint Tracking Feature Added', summary: 'You can now view the real-time status of your submitted complaints directly from your household dashboard.', date: '10 Feb 2025', readTime: '1 min read', badge: 'badge-blue', image: '📢' },
+    { id: 5, category: 'Announcement', title: 'New Feedback Tracking Feature Added', summary: 'You can now view the real-time status of your submitted feedback directly from your household dashboard.', date: '10 Feb 2025', readTime: '1 min read', badge: 'badge-blue', image: '📢' },
     { id: 6, category: 'Update', title: 'Recycling Drop-off Points Expanded', summary: 'Three new recycling drop-off bins have been installed across Ward 1 and Ward 2 to improve segregation compliance.', date: '5 Feb 2025', readTime: '2 min read', badge: 'badge-yellow', image: '♻️' },
 ];
 

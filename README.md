@@ -65,26 +65,70 @@ To evaluate the system, please use the following credentials for the respective 
 ### Super Admin Portal (Master Control)
 
 - **Portal**: [Super Admin Frontend]
-- **Phone**: `1111111111`
+- **Phone**: `9111111111`
 - **OTP**: The OTP will be shown in a popup on your screen.
 
 ### Admin Portal (Panchayat Management)
 
 - **Portal**: [Admin Frontend]
-- **Phone**: `9222222222`
+- **Phone**: `9222222222` - chicalim panchayat
+- **Phone**: `8322374279` - Mauxi panchayat
 - **OTP**: Provide any simple testing OTP (e.g. `123456`) if prompted, or check the backend console logs.
 
 ### Household User Portal (Citizen Dashboard)
 
 - **Portal**: [User Frontend]
-- **Phone 1**: `9333333333`
-- **Phone 2**: `9444444444`
+- **Phone 1**: `9333333333`- chicalim
+- **Phone 2**: `9444444444`- chicalim
+- **Phone 3**: `9555555555`- chicalim
+- **Phone 4**: `9666666666`- mauxi
+- **Phone 5**: `9888888888`- mauxi
 - **OTP**: Provide any simple testing OTP (e.g. `123456`) if prompted, or check the backend console logs.
 
 ### Labour Mobile App (Garbage Collector App)
 
 - **Portal**: [App Frontend]
-- **Phone 1**: `9876543210`
+- **Phone 1**: `9876543210` - chicalim
+- **Phone 2**: `9777777777` - mauxi
 - **OTP**: Provide any simple testing OTP (e.g. `123456`) if prompted, or check the backend console logs.
 
 > **Note:** All logins use OTP (One-Time Password) based authentication. During local testing, the OTP may be printed directly in the backend terminal console. Ensure the backend server is running to view these testing OTPs.
+
+---
+
+## Environment Variables
+
+Each sub-project requires its own `.env` file. Create these files before running the project locally.
+
+### `backend/.env`
+
+```env
+MONGO_URI=mongodb+srv://kamsoftindia_db_user:VFXDqxS3SIH0jBZJ@sgcs.7xchewr.mongodb.net/garbage-collection-db
+JWT_SECRET=garbage_collection_secret_2026
+PORT=8000
+```
+
+### `admin-frontend/.env`
+
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
+VITE_API_BASE_URL=http://localhost:8000/api
+NEXT_PUBLIC_SUPER_ADMIN_URL=http://localhost:3002
+```
+
+### `super-admin-frontend/.env`
+
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
+VITE_API_BASE_URL=http://localhost:8000/api
+NEXT_PUBLIC_ADMIN_URL=http://localhost:3000
+```
+
+### `user-frontend/.env`
+
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
+VITE_API_BASE_URL=http://localhost:8000/api
+```
+
+> **Note:** The `app-frontend` (mobile app) uses a `config.js` file instead of `.env`. Update the API base URL there if needed.

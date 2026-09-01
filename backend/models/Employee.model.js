@@ -14,7 +14,6 @@ const employeeSchema = new mongoose.Schema(
     employeeCode: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
     },
 
@@ -56,4 +55,8 @@ const employeeSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Compound unique index: employeeCode is unique within each panchayat
+employeeSchema.index({ panchayat: 1, employeeCode: 1 }, { unique: true });
+
 export default mongoose.model("Employee", employeeSchema);
+

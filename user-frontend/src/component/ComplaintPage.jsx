@@ -108,7 +108,7 @@ const ComplaintPage = ({ navigate: propNavigate }) => {
         }
         // Type
         if (!formData.type) {
-            newErrors.type = 'Please select a complaint type.';
+            newErrors.type = 'Please select a feedback type.';
         }
         // Description
         if (!formData.description.trim()) {
@@ -146,7 +146,7 @@ const ComplaintPage = ({ navigate: propNavigate }) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            toast.success('Complaint submitted successfully!');
+            toast.success('Feedback submitted successfully!');
             setSubmitted(true);
             setTimeout(() => navigate(user ? 'household-dashboard' : 'home'), 3500);
         } catch (err) {
@@ -160,7 +160,7 @@ const ComplaintPage = ({ navigate: propNavigate }) => {
         <div className="min-h-screen" style={{ background: 'var(--surface-2)' }}>
             <div className="max-w-3xl mx-auto px-4 py-10">
                 <Breadcrumb
-                    path={[{ label: 'Home', view: 'home' }, { label: 'Submit Complaint', view: null }]}
+                    path={[{ label: 'Home', view: 'home' }, { label: 'Submit Feedback', view: null }]}
                     navigate={navigate}
                 />
 
@@ -175,8 +175,8 @@ const ComplaintPage = ({ navigate: propNavigate }) => {
                             <div className="w-20 h-20 bg-green-100 rounded-3xl flex items-center justify-center mx-auto mb-6">
                                 <CheckCircle2 className="w-10 h-10 text-green-600" />
                             </div>
-                            <h2 className="text-2xl font-display font-bold text-gray-900 mb-2">Complaint Submitted!</h2>
-                            <p className="text-gray-500 mb-2">Your complaint has been logged and will be reviewed shortly.</p>
+                            <h2 className="text-2xl font-display font-bold text-gray-900 mb-2">Feedback Submitted!</h2>
+                            <p className="text-gray-500 mb-2">Your feedback has been logged and will be reviewed shortly.</p>
                             <p className="text-sm text-green-600 font-medium">Redirecting you…</p>
                             <div className="mt-6 h-1 bg-gray-100 rounded-full overflow-hidden">
                                 <motion.div
@@ -198,7 +198,7 @@ const ComplaintPage = ({ navigate: propNavigate }) => {
                                 <div className="w-14 h-14 bg-gradient-to-br from-red-100 to-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-red-200">
                                     <AlertCircle className="w-7 h-7 text-red-500" />
                                 </div>
-                                <h1 className="text-3xl font-display font-bold text-gray-900 mb-2">Submit a Complaint</h1>
+                                <h1 className="text-3xl font-display font-bold text-gray-900 mb-2">Submit Feedback</h1>
                                 <p className="text-gray-500">
                                     {selectedPanchayat ? `Filing for ${selectedPanchayat.name}` : 'Help us maintain a cleaner community.'}
                                 </p>
@@ -239,7 +239,7 @@ const ComplaintPage = ({ navigate: propNavigate }) => {
                                     )}
 
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">Complaint Type <span className="text-red-500">*</span></label>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">Feedback Type <span className="text-red-500">*</span></label>
                                         <div className={`grid grid-cols-2 sm:grid-cols-3 gap-2 ${errors.type ? 'rounded-xl ring-1 ring-red-300 p-1' : ''}`}>
                                             {complaintTypes.map((t) => (
                                                 <button
@@ -310,7 +310,7 @@ const ComplaintPage = ({ navigate: propNavigate }) => {
                                                 <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
                                                 Submitting...
                                             </span>
-                                        ) : 'Submit Complaint'}
+                                        ) : 'Submit Feedback'}
                                     </motion.button>
                                 </form>
                             </div>

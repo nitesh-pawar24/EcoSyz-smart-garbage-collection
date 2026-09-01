@@ -14,11 +14,17 @@ const REPORT_CONFIGS = {
     fields: ['dateRange', 'ward'],
     description: 'Detailed analysis of waste volumes across different wards and time periods.'
   },
+  'Feedback and Grievance Resolution Times': {
+    icon: CheckCircle,
+    color: 'from-emerald-600 to-emerald-700',
+    fields: ['dateRange', 'ward', 'category', 'status'],
+    description: 'Track resolution efficiency and category-wise feedback distribution.'
+  },
   'Complaint and Grievance Resolution Times': {
     icon: CheckCircle,
     color: 'from-emerald-600 to-emerald-700',
     fields: ['dateRange', 'ward', 'category', 'status'],
-    description: 'Track resolution efficiency and category-wise complaint distribution.'
+    description: 'Track resolution efficiency and category-wise feedback distribution.'
   },
   'Segregation Compliance Percentage': {
     icon: Filter,

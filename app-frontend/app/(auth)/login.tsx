@@ -239,9 +239,6 @@ export default function LoginScreen() {
           </Animated.View>
         </ScrollView>
       </KeyboardAvoidingView>
-
-
-
       <CustomAlert visible={alertVisible} title={alertConfig.title} message={alertConfig.message} type={alertConfig.type} otp={alertConfig.otp} onClose={() => setAlertVisible(false)} />
     </SafeAreaView>
   );

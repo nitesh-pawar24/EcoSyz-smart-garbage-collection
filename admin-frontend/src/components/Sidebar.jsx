@@ -134,9 +134,9 @@ export default function Sidebar({ isOpen, onClose }) {
 
         {/* Reports */}
         <div>
-          <SectionLabel label="Reports & Complaints" />
+          <SectionLabel label="Reports & Feedback" />
           <div className="space-y-1">
-            <NavLink to="/report-complaint" icon={FileText} label="Report & Complaint Mgmt" />
+            <NavLink to="/report-complaint" icon={FileText} label="Report & Feedback Mgmt" />
             <NavLink to="/waste-data" icon={BarChart3} label="Waste Data Management" />
             <NavLink to="/contact-queries" icon={Mail} label="Contact Queries" />
             <NavLink to="/schedule-bookings" icon={Calendar} label="Schedule Bookings" />

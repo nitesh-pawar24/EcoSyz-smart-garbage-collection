@@ -321,7 +321,7 @@ export default function DustbinManagement() {
     setIsViewModalOpen(false)
     handleDeleteBinClick(selectedBin)
   }
-
+  // Suprit
   const handleDirectTableDelete = (bin) => {
     handleDeleteBinClick(bin)
   }

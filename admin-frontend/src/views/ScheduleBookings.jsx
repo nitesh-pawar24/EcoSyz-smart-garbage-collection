@@ -41,7 +41,7 @@ export default function ScheduleBookings() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="text-xs text-gray-400 font-medium mb-0.5">Reports & Complaints › Schedule Bookings</p>
+        <p className="text-xs text-gray-400 font-medium mb-0.5">Reports & Feedback › Schedule Bookings</p>
         <h1 className="text-xl font-black text-gray-800">Pickup Schedule Bookings</h1>
         <p className="text-sm text-gray-500 mt-1">Manage pickup requests submitted by citizens.</p>
       </div>

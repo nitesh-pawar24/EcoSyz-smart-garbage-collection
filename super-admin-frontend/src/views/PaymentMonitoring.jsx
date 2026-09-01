@@ -1,55 +1,41 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import PaymentOverviewCard from "../components/PaymentOverviewCard";
 import PaymentTable from "../components/PaymentTable";
-
-const overviewStats = [
-  { id: 1, title: "Successful Payments", count: "100", icon: "check" },
-  { id: 2, title: "Pending Payments", count: "18", icon: "pending" },
-  { id: 3, title: "Failed Payments", count: "5", icon: "failed" },
-];
-
-const paymentData = [
-  {
-    id: 1,
-    panchayatName: "Mapusa Panchayat",
-    planName: "Basic",
-    amount: "₹1,499",
-    paymentDate: "Oct 25, 2025, 10:42 AM",
-    transactionId: "pay_0120",
-    status: "Successful",
-  },
-  {
-    id: 2,
-    panchayatName: "Verma Panchayat",
-    planName: "Standard",
-    amount: "₹2,699",
-    paymentDate: "Oct 25, 2025, 10:42 AM",
-    transactionId: "pay_0220",
-    status: "Successful",
-  },
-  {
-    id: 3,
-    panchayatName: "Navelim Panchayat",
-    planName: "Standard",
-    amount: "₹2,699",
-    paymentDate: "Oct 25, 2025, 10:42 AM",
-    transactionId: "pay_0320",
-    status: "Successful",
-  },
-  {
-    id: 4,
-    panchayatName: "Varca Panchayat",
-    planName: "Premium",
-    amount: "₹5,999",
-    paymentDate: "Oct 25, 2025, 10:42 AM",
-    transactionId: "pay_0420",
-    status: "Failed",
-  },
-];
+import api from "../api/axios";
 
 export default function PaymentMonitoring() {
+  const [stats, setStats] = useState({ successful: 0, pending: 0, failed: 0 });
+  const [paymentData, setPaymentData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchPayments = async () => {
+    try {
+      setLoading(true);
+      const res = await api.get("/company/payments");
+      if (res.data) {
+        setStats(res.data.stats || { successful: 0, pending: 0, failed: 0 });
+        setPaymentData(res.data.payments || []);
+      }
+    } catch (err) {
+      console.error("Failed to fetch payments", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPayments();
+  }, []);
+
+  const overviewStats = [
+    { id: 1, title: "Successful Payments", count: String(stats.successful ?? 0), icon: "check" },
+    { id: 2, title: "Pending Payments", count: String(stats.pending ?? 0), icon: "pending" },
+    { id: 3, title: "Failed Payments", count: String(stats.failed ?? 0), icon: "failed" },
+  ];
+
   return (
     <Layout>
       {/* Stat cards */}
@@ -70,7 +56,11 @@ export default function PaymentMonitoring() {
           </div>
         </div>
         <div className="p-0 md:px-6 md:pb-6 overflow-x-auto custom-scrollbar">
-          <PaymentTable paymentData={paymentData} />
+          {loading ? (
+            <div className="p-10 text-center text-slate-400 text-sm">Loading payment records…</div>
+          ) : (
+            <PaymentTable paymentData={paymentData} />
+          )}
         </div>
       </div>
     </Layout>

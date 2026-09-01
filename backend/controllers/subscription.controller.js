@@ -1,5 +1,12 @@
 import Subscription from '../models/Subscription.model.js'
 import Panchayat from '../models/Panchayat.model.js'
+import Payment from '../models/Payment.model.js'
+
+const PLAN_PRICES = {
+  BASIC: 1499,
+  STANDARD: 2699,
+  PREMIUM: 5999,
+}
 
 const PLAN_CONFIG = {
   BASIC: {
@@ -72,6 +79,23 @@ export const createSubscription = async (req, res) => {
     await Panchayat.findByIdAndUpdate(panchayatId, {
       subscriptionId: subscription._id,
     })
+
+    // Record Payment
+    try {
+      const amount = PLAN_PRICES[planKey] || 2699
+      const txId = `pay_${Date.now().toString().slice(-4)}${Math.floor(1000 + Math.random() * 9000)}`
+      await Payment.create({
+        panchayat: panchayatId,
+        planName: planKey.charAt(0) + planKey.slice(1).toLowerCase(),
+        amount,
+        paymentDate: new Date(),
+        transactionId: txId,
+        status: 'Successful',
+        paymentMethod: 'Online / NetBanking'
+      })
+    } catch (payErr) {
+      console.error('Payment record creation error:', payErr)
+    }
 
     res.status(201).json({
       message: 'Subscription activated',
@@ -147,6 +171,24 @@ export const reactivateSubscription = async (req, res) => {
 
     await sub.save()
 
+    // Record Payment
+    try {
+      const planKey = sub.planName?.toUpperCase() || 'STANDARD'
+      const amount = PLAN_PRICES[planKey] || 2699
+      const txId = `pay_${Date.now().toString().slice(-4)}${Math.floor(1000 + Math.random() * 9000)}`
+      await Payment.create({
+        panchayat: sub.panchayatId,
+        planName: planKey.charAt(0) + planKey.slice(1).toLowerCase(),
+        amount,
+        paymentDate: new Date(),
+        transactionId: txId,
+        status: 'Successful',
+        paymentMethod: 'Online / NetBanking'
+      })
+    } catch (payErr) {
+      console.error('Payment record creation error:', payErr)
+    }
+
     res.json({ message: 'Reactivated for 30 days', subscription: sub })
   } catch (err) {
     console.error(err)
@@ -183,6 +225,23 @@ export const upgradeSubscription = async (req, res) => {
     sub.graceEndDate = addDays(sub.endDate, 7)
 
     await sub.save()
+
+    // Record Payment
+    try {
+      const amount = PLAN_PRICES[planKey] || 2699
+      const txId = `pay_${Date.now().toString().slice(-4)}${Math.floor(1000 + Math.random() * 9000)}`
+      await Payment.create({
+        panchayat: sub.panchayatId,
+        planName: planKey.charAt(0) + planKey.slice(1).toLowerCase(),
+        amount,
+        paymentDate: new Date(),
+        transactionId: txId,
+        status: 'Successful',
+        paymentMethod: 'Online / NetBanking'
+      })
+    } catch (payErr) {
+      console.error('Payment record creation error:', payErr)
+    }
 
     res.json({ message: `Plan changed to ${planKey}`, subscription: sub })
   } catch (err) {
