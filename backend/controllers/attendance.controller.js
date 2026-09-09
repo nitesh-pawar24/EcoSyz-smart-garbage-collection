@@ -50,22 +50,32 @@ export const scanAttendance = async (req, res) => {
       return res.status(404).json({ message: "Invalid labour" });
     }
 
-    // 🔹 FIND DUSTBIN (Support both ObjectId and binCode)
+    // 🔹 FIND DUSTBIN (Support ObjectId, exact binCode, with/without 'B-' prefix, case-insensitive)
     let dustbin;
-    const isObjectId = mongoose.Types.ObjectId.isValid(dustbinId);
+    const cleanDustbinId = (dustbinId || "").trim();
+    const isObjectId = mongoose.Types.ObjectId.isValid(cleanDustbinId);
 
     if (isObjectId) {
       dustbin = await Dustbin.findOne({
-        _id: dustbinId,
+        _id: cleanDustbinId,
         panchayat: panchayatId,
         isActive: true,
       });
-    } else {
-      // If not a valid ObjectId, assume it's a binCode (e.g., "B-9394")
+    }
+
+    if (!dustbin && cleanDustbinId) {
+      const stripped = cleanDustbinId.replace(/^b[\s-_]*/i, "");
+      const withPrefix = `B-${stripped}`;
       dustbin = await Dustbin.findOne({
-        binCode: dustbinId,
         panchayat: panchayatId,
         isActive: true,
+        $or: [
+          { binCode: cleanDustbinId },
+          { binCode: withPrefix },
+          { binCode: stripped },
+          { binCode: { $regex: new RegExp(`^B-?${stripped}$`, "i") } },
+          { binCode: { $regex: new RegExp(`^${cleanDustbinId}$`, "i") } },
+        ],
       });
     }
 

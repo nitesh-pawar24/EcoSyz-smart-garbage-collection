@@ -1,4 +1,4 @@
-import { MapPin, User, CheckCircle, Clock, Zap, TrendingUp } from 'lucide-react-native';
+import { MapPin, User, CheckCircle, Clock, Zap, TrendingUp, Mic } from 'lucide-react-native';
 import React, { useState, useCallback } from 'react';
 import {
   ScrollView, Switch, Text, TextInput, TouchableOpacity, View,
@@ -10,6 +10,7 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 import CustomAlert from '../../components/CustomAlert';
+import VoiceCollectionModal from '../../components/VoiceCollectionModal';
 import { request } from '../../utils/api';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -29,6 +30,7 @@ export default function HomeScreen() {
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertConfig, setAlertConfig] = useState({ title: '', message: '', type: 'success' as 'success' | 'error' });
   const [stats, setStats] = useState({ location: 'Loading...', ward: '', wards: [] as string[], total: 0, completed: 0, pending: 0, onDuty: true });
+  const [voiceModalVisible, setVoiceModalVisible] = useState(false);
 
   // Leave reason dialog
   const [leaveDialogVisible, setLeaveDialogVisible] = useState(false);
@@ -209,6 +211,32 @@ export default function HomeScreen() {
               {isAvailable ? 'Start Scanning Bins' : 'Go On Duty to Scan'}
             </Text>
           </TouchableOpacity>
+
+          {/* ── Voice Record Collection CTA ──────────────── */}
+          <TouchableOpacity
+            onPress={() => {
+              if (!isAvailable) {
+                setAlertConfig({ title: 'Off Duty', message: "Toggle 'Available On Duty' to record collection.", type: 'error' });
+                setAlertVisible(true);
+              } else {
+                setVoiceModalVisible(true);
+              }
+            }}
+            activeOpacity={0.9}
+            style={{
+              backgroundColor: isAvailable ? (theme.dark ? '#1e1b4b' : '#ede9fe') : (theme.dark ? '#1e293b' : '#f1f5f9'),
+              borderRadius: 16, height: 54,
+              flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+              marginTop: 12,
+              borderWidth: 1.5,
+              borderColor: isAvailable ? PRIMARY : '#cbd5e1',
+            }}
+          >
+            <Mic size={20} color={isAvailable ? PRIMARY : '#94a3b8'} style={{ marginRight: 8 }} />
+            <Text style={{ color: isAvailable ? PRIMARY : '#94a3b8', fontSize: 16, fontWeight: '800', letterSpacing: 0.5 }}>
+              🎤 Record Collection
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {/* ── Performance Section ─────────────────────── */}
@@ -278,7 +306,7 @@ export default function HomeScreen() {
                 {/* Donut */}
                 <View style={{ width: 100, height: 100, justifyContent: 'center', alignItems: 'center' }}>
                   <Svg width={100} height={100} viewBox="0 0 100 100">
-                    <G rotation="-90" origin="50,50">
+                    <G transform="rotate(-90 50 50)">
                       <Circle cx="50" cy="50" r={RADIUS} stroke="#e2e8f0" strokeWidth="10" fill="none" />
                       <Circle cx="50" cy="50" r={RADIUS} stroke={PRIMARY} strokeWidth="10" fill="none"
                         strokeDasharray={CIRCUMFERENCE} strokeDashoffset={offset} strokeLinecap="round" />
@@ -297,6 +325,14 @@ export default function HomeScreen() {
 
       <CustomAlert visible={alertVisible} title={alertConfig.title} message={alertConfig.message}
         type={alertConfig.type} onClose={() => setAlertVisible(false)} />
+
+      <VoiceCollectionModal
+        visible={voiceModalVisible}
+        onClose={() => setVoiceModalVisible(false)}
+        onSuccess={() => {
+          fetchStats();
+        }}
+      />
 
       {/* ── Leave Reason Dialog ──────────────────────────── */}
       <Modal transparent animationType="none" visible={leaveDialogVisible} onRequestClose={cancelLeaveDialog}>

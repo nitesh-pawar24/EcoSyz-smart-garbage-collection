@@ -62,11 +62,7 @@ const CustomAlert: React.FC<CustomAlertProps> = ({
                     backgroundColor: 'white', width: '100%', maxWidth: 360,
                     borderRadius: 24, overflow: 'hidden',
                     shadowColor: '#000', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.18, shadowRadius: 28, elevation: 18,
-                }}>
-                    {/* Coloured accent strip */}
-                    <View style={{ height: 5, backgroundColor: color }} />
-
-                    <View style={{ padding: 28, alignItems: 'center' }}>
+                }}><View style={{ height: 5, backgroundColor: color }} /><View style={{ padding: 28, alignItems: 'center' }}>
                         {/* Icon circle */}
                         <View style={{
                             width: 68, height: 68, borderRadius: 34,

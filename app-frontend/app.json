@@ -13,18 +13,24 @@
       "bundleIdentifier": "com.suraj4124sorganization.garbagecollectionlabourapp",
       "buildNumber": "1",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSSpeechRecognitionUsageDescription": "Allow $(PRODUCT_NAME) to use speech recognition.",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to use the microphone.",
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to use the camera to scan dustbin QR codes."
       }
     },
     "android": {
-      "edgeToEdgeEnabled": true,
+      "usesCleartextTraffic": true,
       "predictiveBackGestureEnabled": false,
       "package": "com.suraj4124sorganization.garbagecollectionlabourapp",
       "versionCode": 1,
       "permissions": [
+        "CAMERA",
+        "android.permission.CAMERA",
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
-        "FOREGROUND_SERVICE"
+        "FOREGROUND_SERVICE",
+        "android.permission.RECORD_AUDIO"
       ]
     },
     "web": {
@@ -47,7 +53,13 @@
             "backgroundColor": "#0f0f1a"
           }
         }
-      ]
+      ],
+      "expo-speech-recognition",
+      "expo-camera",
+      "expo-font",
+      "expo-image",
+      "expo-status-bar",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
@@ -56,9 +68,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "89c1ffb3-0b97-472f-ab79-bfa59681f821"
+        "projectId": "fa36d4b2-ef83-4cfd-a6ea-b054a9f5335c"
       }
     },
-    "owner": "hi_human123"
+    "owner": "suprit_07"
   }
 }
